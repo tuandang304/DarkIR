@@ -10,7 +10,7 @@
 % \usepackage{appendixnumberbeamer} % If you want a separate slide counter for your appendix
 \usepackage{fnpct} % Eliminate the unwanted space before the footnote mark
 \usepackage{tikz} % Washed-out title background, pipeline diagram
-\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, decorations.pathreplacing}
 
 \setbeamerfont{footnote}{size=\tiny}
 
@@ -114,7 +114,7 @@
 \date[15/11/2026]{November 15, 2026}
 
 % School logo: shown at the top-right of the headline; \logo{} hides it for a frame
-\newcommand{\fptlogo}{\includegraphics[height=0.6cm]{Logo_FPT_Education.png}}
+\newcommand{\fptlogo}{\includegraphics[height=0.62cm]{fptu_logo.png}}
 \logo{\fptlogo}
 
 
@@ -174,15 +174,32 @@
     \begin{tikzpicture}
         \clip (0,0) rectangle (\paperwidth,\paperheight); % crop the 3:2 photo to 16:9 without stretching
         \node[inner sep=0, opacity=0.25] at ({0.5\paperwidth},{0.5\paperheight}) {\includegraphics[width=\paperwidth]{P.Zo-9862-scaled-1.jpg}};
-        % FPT logo top-left, just below the headline and above the title box
-        \node[anchor=north west, inner sep=0] at (4mm,{\paperheight-0.9cm}) {\includegraphics[height=0.85cm]{Logo_FPT_Education.png}};
     \end{tikzpicture}%
 }
 % Disable logo
 \logo{}
 
-\begin{frame}
-	\titlepage % Output the title slide, automatically created using the text entered in the PRESENTATION INFORMATION block above
+% Custom title layout (plain = no header/footer): centred logo, title box, team | supervisor, date
+\begin{frame}[plain]
+    \begin{center}
+        \includegraphics[height=1.4cm]{fptu_logo.png}\\[4mm]
+        \begin{beamercolorbox}[wd=0.9\textwidth, sep=9pt, center, rounded=true, shadow=true]{title}
+            {\usebeamerfont{title}\inserttitle}\\[1.5mm]
+            {\usebeamerfont{subtitle}\insertsubtitle}
+        \end{beamercolorbox}
+        \vspace{5mm}
+        % fully centred: three students side by side, supervisor below
+        {\footnotesize\bfseries\color{fptOrange} STUDENTS}\\[0.5mm]
+        {\small
+        \begin{tabular}{c@{\hspace{10mm}}c@{\hspace{10mm}}c}
+            Mai Xuan Duc & Phan Minh Nhat Truong & Dang Thanh Tuan \\
+            {\color{fptBlue}SE196257} & {\color{fptBlue}SE196744} & {\color{fptBlue}SE196418}
+        \end{tabular}}\\[2.5mm]
+        {\footnotesize\bfseries\color{fptOrange} SUPERVISOR}\\[0.5mm]
+        {\small Mr. Nguyen Trong Tai \quad$\cdot$\quad FPT University}
+        \vfill
+        {\small\color{fptBlue}\bfseries \insertdate}
+    \end{center}
 \end{frame}
 
 % Clear background
@@ -380,47 +397,46 @@
 
 \begin{frame}
     \frametitle{Solution Pipeline}
-    \framesubtitle{From raw night photos to a deployed restoration service}
+    \framesubtitle{Train once on paired images, then restore new photos on the local machine}
 
-    \begin{center}
+    \centering
     \begin{tikzpicture}[
-        stage/.style={rectangle, rounded corners=3pt, fill=fptBlue, text=white, font=\small\bfseries,
-                      minimum width=2.45cm, minimum height=0.9cm, align=center},
-        detail/.style={rectangle, rounded corners=3pt, draw=fptBlue!40, fill=fptBlue!6, font=\scriptsize,
-                       text width=2.3cm, minimum height=2.5cm, align=left, anchor=north},
-        arrow/.style={-{Stealth[length=2.5mm]}, very thick, fptOrange},
-        node distance=0.35cm]
-        \node[stage] (s1) {Data\\Ingestion};
-        \node[stage, right=of s1] (s2) {Pre-\\processing};
-        \node[stage, right=of s2] (s3) {Feature\\Learning};
-        \node[stage, right=of s3] (s4) {Modeling};
-        \node[stage, right=of s4] (s5) {Deployment};
-        \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5} \draw[arrow] (\a) -- (\b);
+        box/.style={rounded corners=4pt, draw=fptBlue!45, fill=white, text width=2.4cm, align=center,
+                    minimum height=1.5cm, font=\scriptsize, inner sep=3pt},
+        net/.style={box, fill=fptBlue, draw=fptBlue, text=white},
+        flow/.style={-{Stealth[length=2mm, width=2mm]}, line width=1.3pt, fptOrange},
+        lane/.style={rounded corners=6pt, draw=none},
+        lanelabel/.style={rotate=90, font=\scriptsize\bfseries, align=center}]
 
-        \node[detail] at ([yshift=-2mm]s1.south) {
-            $\bullet$ LOL-Blur, LOLv2, LSRW (paired)\\
-            $\bullet$ Real-LOLBlur, DICM\ldots (unpaired)\\
-            $\bullet$ EDA: brightness, gain};
-        \node[detail] at ([yshift=-2mm]s2.south) {
-            $\bullet$ 384$^2$ random crops\\
-            $\bullet$ flips / rotations\\
-            $\bullet$ scale to $[0,1]$\\
-            $\bullet$ pad to $\times 8$};
-        \node[detail] at ([yshift=-2mm]s3.south) {
-            $\bullet$ FFT amplitude (illumination)\\
-            $\bullet$ dilated convs, large receptive field (blur)\\
-            $\bullet$ learned, no hand-made features};
-        \node[detail] at ([yshift=-2mm]s4.south) {
-            $\bullet$ NightClear encoder--decoder CNN\\
-            $\bullet$ L1 + LPIPS + edge + low-res loss\\
-            $\bullet$ PSNR / SSIM / LPIPS};
-        \node[detail] at ([yshift=-2mm]s5.south) {
-            $\bullet$ Gradio web app\\
-            $\bullet$ FP32 / FP16 / TensorRT\\
-            $\bullet$ image, batch, video, webcam\\
-            $\bullet$ Colab T4 script};
+        % lanes
+        \fill[lane, fptBlue!7]   (-2.2,-0.9) rectangle (11.35,1.5);
+        \fill[lane, fptOrange!9] (-2.2,-3.95) rectangle (11.35,-1.75);
+        \node[lanelabel, text=fptBlue]   at (-1.75,0.3)  {TRAINING\\[-0.5mm]\mdseries offline, once};
+        \node[lanelabel, text=fptOrange] at (-1.75,-2.85) {INFERENCE\\[-0.5mm]\mdseries local GPU / CPU};
+
+        % training row
+        \node[box] (d)  at (0,0)   {\textbf{Paired data}\\ LOL-Blur, LOLv2, LSRW\\ low-light + ground truth};
+        \node[box] (a)  at (3.3,0) {\textbf{Augmentation}\\ 384$\times$384 crops\\ flips, rotations};
+        \node[net] (m)  at (6.6,0) {\textbf{NightClear}\\ Encoder: brighten (FFT)\\ Decoder: deblur};
+        \node[box] (l)  at (9.9,0) {\textbf{Loss vs.\ GT}\\ L1 + LPIPS\\ + edge + low-res};
+        \draw[flow] (d) -- (a);
+        \draw[flow] (a) -- (m);
+        \draw[flow] (m) -- (l);
+        \draw[flow, fptBlue] (l.north) to[out=150, in=30]
+            node[above, font=\scriptsize, text=fptBlue] {update weights (AdamW)} (m.north);
+
+        % inference row
+        \node[box] (i)  at (0,-2.85)   {\textbf{Night photo}\\ image, batch,\\ video or webcam};
+        \node[box] (p)  at (3.3,-2.85) {\textbf{Pre-processing}\\ scale to $[0,1]$\\ pad to $\times$8 size};
+        \node[net] (m2) at (6.6,-2.85) {\textbf{NightClear}\\ frozen weights\\ one forward pass};
+        \node[box] (o)  at (9.9,-2.85) {\textbf{Restored photo}\\ brighter + sharper\\ shown in the web app};
+        \draw[flow] (i) -- (p);
+        \draw[flow] (p) -- (m2);
+        \draw[flow] (m2) -- (o);
+
+        % hand-over
+        \draw[flow, fptBlue, dashed] (m.south) -- node[right, font=\scriptsize\bfseries, text=fptBlue] {trained weights} (m2.north);
     \end{tikzpicture}
-    \end{center}
 \end{frame}
 
 \begin{frame}
@@ -484,6 +500,7 @@
 
     \begin{center}
     \footnotesize
+    \setlength{\tabcolsep}{4.5pt}
     \begin{tabular}{lllll}
         \toprule
         \textbf{Dataset} & \textbf{Metric} & \textbf{NightClear} & \textbf{Best other method} & \\
@@ -583,7 +600,7 @@
                 \item \textbf{5 models}: NightClear, NightClear-s, RetinexFormer, HVI-CIDNet, Zero-DCE++
                 \item \textbf{Compare}: all models on one photo, ranked by speed
                 \item \textbf{Precision}: FP32, FP16, TensorRT
-                \item Runs on CPU or GPU, including free Google Colab
+                \item Runs on the local GPU or on CPU
             \end{itemize}
         \end{column}
     \end{columns}
@@ -611,7 +628,7 @@
             \textbf{Value}
             \begin{itemize}
                 \item One network instead of two to store, tune and run
-                \item Fits laptops, edge and free cloud GPUs
+                \item Fits laptops and a single local GPU
                 \item Handheld night shots without tripod or flash
             \end{itemize}
         \end{column}
@@ -666,7 +683,7 @@
     \begin{enumerate}
         \item \textbf{One model, three problems}: NightClear brightens, denoises and deblurs at once and beats two-model pipelines by +8.7\,dB.
         \item \textbf{Efficient by design}: Fourier-amplitude encoder + dilated decoder give the best LOLBlur PSNR at 7.25 GMACs; our EDA and amplitude-swap test show why.
-        \item \textbf{Deployable}: a web app with 5 models, video/webcam and FP16/TensorRT, runnable on CPU or a free GPU.
+        \item \textbf{Deployable}: a web app with 5 models, video/webcam and FP16/TensorRT, runnable on a local GPU or CPU.
     \end{enumerate}
 \end{frame}
 % ===================== 10-references.tex =====================
@@ -728,7 +745,7 @@
 %---------------------------------------------------------
 \begin{frame}
     \begin{center}
-        \includegraphics[height=1.3cm]{Logo_FPT_Education.png}\\[6mm]
+        \includegraphics[height=1.5cm]{fptu_logo.png}\\[6mm]
         {\fontsize{40}{46}\selectfont\bfseries\color{fptBlue} Thank You!}\\[4mm]
         {\large\color{fptOrange} NightClear: Robust Low-Light Image Restoration}\\[6mm]
         {\small Mai Xuan Duc \quad$\cdot$\quad Phan Minh Nhat Truong \quad$\cdot$\quad Dang Thanh Tuan}\\[1mm]
