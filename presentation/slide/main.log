@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.9.25)  14 NOV 2026 19:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.9.25)  14 NOV 2026 19:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -996,64 +996,67 @@ File: images/Logo_FPT_Education.png Graphic file (type png)
 Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 164.
 
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
- (./01-title.tex
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 20.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 186.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 20.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 186.
 <images/P.Zo-9862-scaled-1.jpg, id=59, 616.704pt x 411.2163pt>
 File: images/P.Zo-9862-scaled-1.jpg Graphic file (type jpg)
 <use images/P.Zo-9862-scaled-1.jpg>
-Package pdftex.def Info: images/P.Zo-9862-scaled-1.jpg  used on input line 20.
+Package pdftex.def Info: images/P.Zo-9862-scaled-1.jpg  used on input line 186.
+
 (pdftex.def)             Requested size: 455.24408pt x 303.56116pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 20.
-(pdftex.def)             Requested size: 63.08162pt x 24.18501pt.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 186.
 
-[1
+(pdftex.def)             Requested size: 63.08162pt x 24.18501pt.
+ [1
 
 {/home/tuan/.texlive2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/sha
 re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} <./images/P.Zo-9862-scaled-1
-.jpg> <./images/Logo_FPT_Education.png>]) (./02-contents.tex
+.jpg> <./images/Logo_FPT_Education.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 21.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 218.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
- (./main.toc)
-(./main.toc)
+ (./main.toc) (./main.toc)
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 21.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 218.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [2
 
-]) (./03-problem.tex
+]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 35.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 255.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 35.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 255.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <7> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 35.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 255.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 35.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 255.
 <../../assets/teaser/0085_low.png, id=91, 1124.2pt x 642.4pt>
 File: ../../assets/teaser/0085_low.png Graphic file (type png)
 <use ../../assets/teaser/0085_low.png>
-Package pdftex.def Info: ../../assets/teaser/0085_low.png  used on input line 3
-5.
+Package pdftex.def Info: ../../assets/teaser/0085_low.png  used on input line 2
+55.
 (pdftex.def)             Requested size: 115.34274pt x 65.9176pt.
 <../../assets/teaser/0085_darkir.png, id=92, 1124.2pt x 642.4pt>
 File: ../../assets/teaser/0085_darkir.png Graphic file (type png)
 <use ../../assets/teaser/0085_darkir.png>
 Package pdftex.def Info: ../../assets/teaser/0085_darkir.png  used on input lin
-e 35.
+e 255.
 (pdftex.def)             Requested size: 115.34274pt x 65.9176pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 35.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 255.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [3
 
@@ -1061,294 +1064,330 @@ Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 35.
 .png (PNG copy)>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 68.
-(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
-File: images/Logo_FPT_Education.png Graphic file (type png)
-<use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 68.
-(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
- [4
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 288.
 
-]) (./04-data.tex
-File: images/Logo_FPT_Education.png Graphic file (type png)
-<use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 46.
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 46.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 288.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 
-[5
+[4
 
 ]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 66.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 335.
+
+(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
+File: images/Logo_FPT_Education.png Graphic file (type png)
+<use images/Logo_FPT_Education.png>
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 335.
+
+(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
+ [5
+
+]
+File: images/Logo_FPT_Education.png Graphic file (type png)
+<use images/Logo_FPT_Education.png>
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 355.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/eda/brightness.png, id=122, 793.88596pt x 260.172pt>
 File: images/eda/brightness.png Graphic file (type png)
 <use images/eda/brightness.png>
-Package pdftex.def Info: images/eda/brightness.png  used on input line 66.
+Package pdftex.def Info: images/eda/brightness.png  used on input line 355.
 (pdftex.def)             Requested size: 337.40312pt x 110.57361pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 66.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 355.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [6
 
  <./images/eda/brightness.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 85.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 374.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/eda/gain_scatter.png, id=132, 390.9807pt x 317.988pt>
 File: images/eda/gain_scatter.png Graphic file (type png)
 <use images/eda/gain_scatter.png>
-Package pdftex.def Info: images/eda/gain_scatter.png  used on input line 85.
+Package pdftex.def Info: images/eda/gain_scatter.png  used on input line 374.
 (pdftex.def)             Requested size: 216.67201pt x 176.2234pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 85.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 374.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [7
 
- <./images/eda/gain_scatter.png>])
-(./05-method.tex
+ <./images/eda/gain_scatter.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 49.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 424.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 
-Overfull \hbox (2.10956pt too wide) in paragraph at lines 49--49
+Overfull \hbox (2.10956pt too wide) in paragraph at lines 424--424
 \OT1/phv/m/n/8 DICM...(unpaired)  
  []
 
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 49.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 424.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 [8
 
 ]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 81.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 456.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <../../assets/networks-scheme.png, id=150, 1330.9725pt x 515.9275pt>
 File: ../../assets/networks-scheme.png Graphic file (type png)
 <use ../../assets/networks-scheme.png>
-Package pdftex.def Info: ../../assets/networks-scheme.png  used on input line 8
-1.
+Package pdftex.def Info: ../../assets/networks-scheme.png  used on input line 4
+56.
 (pdftex.def)             Requested size: 202.94762pt x 78.67543pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 81.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 456.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [9
 
- <../../assets/networks-scheme.png>]) (./06-results.tex
+ <../../assets/networks-scheme.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 22.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 479.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/results/efficiency.png, id=159, 564.79005pt x 317.988pt>
 File: images/results/efficiency.png Graphic file (type png)
 <use images/results/efficiency.png>
-Package pdftex.def Info: images/results/efficiency.png  used on input line 22.
+Package pdftex.def Info: images/results/efficiency.png  used on input line 479.
+
 (pdftex.def)             Requested size: 207.71944pt x 116.95015pt.
 <images/results/cascade.png, id=160, 454.21695pt x 274.626pt>
 File: images/results/cascade.png Graphic file (type png)
 <use images/results/cascade.png>
-Package pdftex.def Info: images/results/cascade.png  used on input line 22.
+Package pdftex.def Info: images/results/cascade.png  used on input line 479.
 (pdftex.def)             Requested size: 182.00237pt x 110.0412pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 22.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 479.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [10
 
  <./images/results/efficiency.png> <./images/results/cascade.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 51.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 508.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 
-Overfull \hbox (8.67188pt too wide) in paragraph at lines 51--51
+Overfull \hbox (8.67188pt too wide) in paragraph at lines 508--508
  [] 
  []
 
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 51.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 508.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 [11
 
 ]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 66.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 523.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/results/error_maps.png, id=176, 1070.3187pt x 334.24875pt>
 File: images/results/error_maps.png Graphic file (type png)
 <use images/results/error_maps.png>
-Package pdftex.def Info: images/results/error_maps.png  used on input line 66.
+Package pdftex.def Info: images/results/error_maps.png  used on input line 523.
+
 (pdftex.def)             Requested size: 313.2262pt x 97.81708pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 66.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 523.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [12
 
- <./images/results/error_maps.png>]) (./07-interpretability.tex
+ <./images/results/error_maps.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 18.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 542.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/results/ablation.png, id=185, 856.76085pt x 289.08pt>
 File: images/results/ablation.png Graphic file (type png)
 <use images/results/ablation.png>
-Package pdftex.def Info: images/results/ablation.png  used on input line 18.
+Package pdftex.def Info: images/results/ablation.png  used on input line 542.
 (pdftex.def)             Requested size: 296.19725pt x 99.94002pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 18.
-(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 542.
 
-[13
+(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
+ [13
 
  <./images/results/ablation.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 40.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 564.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/results/amplitude_swap.png, id=196, 1070.3187pt x 212.4738pt>
 File: images/results/amplitude_swap.png Graphic file (type png)
 <use images/results/amplitude_swap.png>
 Package pdftex.def Info: images/results/amplitude_swap.png  used on input line 
-40.
+564.
 (pdftex.def)             Requested size: 385.60841pt x 76.54886pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 40.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 564.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [14
 
- <./images/results/amplitude_swap.png>]) (./08-demo.tex
+ <./images/results/amplitude_swap.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 25.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 590.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/demo/ui.png, id=205, 1606.0pt x 1003.75pt>
 File: images/demo/ui.png Graphic file (type png)
 <use images/demo/ui.png>
-Package pdftex.def Info: images/demo/ui.png  used on input line 25.
+Package pdftex.def Info: images/demo/ui.png  used on input line 590.
 (pdftex.def)             Requested size: 268.67117pt x 167.909pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 25.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 590.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [15
 
  <./images/demo/ui.png (PNG copy)>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 64.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 629.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <17.28> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 64.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 629.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 64.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 629.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 64.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 629.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [16
 
-])
-(./09-conclusion.tex
+]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 31.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 661.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 31.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 661.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [17
 
 ]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 41.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 671.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 41.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 671.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [18
 
-]) (./10-references.tex
+]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 18.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 690.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 18.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 690.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [19
 
-]) (./11-appendix.tex
+]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 19.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 710.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/eda/dataset_sizes.png, id=239, 780.516pt x 246.07935pt>
 File: images/eda/dataset_sizes.png Graphic file (type png)
 <use images/eda/dataset_sizes.png>
-Package pdftex.def Info: images/eda/dataset_sizes.png  used on input line 19.
+Package pdftex.def Info: images/eda/dataset_sizes.png  used on input line 710.
 (pdftex.def)             Requested size: 411.67549pt x 129.79436pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 19.
-(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 710.
 
-[20
+(pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
+ [20
 
  <./images/eda/dataset_sizes.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 33.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 724.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 <images/eda/samples.png, id=246, 862.1811pt x 318.34935pt>
 File: images/eda/samples.png Graphic file (type png)
 <use images/eda/samples.png>
-Package pdftex.def Info: images/eda/samples.png  used on input line 33.
+Package pdftex.def Info: images/eda/samples.png  used on input line 724.
 (pdftex.def)             Requested size: 345.53728pt x 127.58522pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 33.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 724.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [21
 
- <./images/eda/samples.png>])
-(./12-thanks.tex
+ <./images/eda/samples.png>]
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 12.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 737.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 12.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 737.
+
 (pdftex.def)             Requested size: 96.49998pt x 36.98866pt.
 File: images/Logo_FPT_Education.png Graphic file (type png)
 <use images/Logo_FPT_Education.png>
-Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 12.
+Package pdftex.def Info: images/Logo_FPT_Education.png  used on input line 737.
+
 (pdftex.def)             Requested size: 44.54208pt x 17.07182pt.
  [22
 
-])
+]
 \tf@nav=\write6
 \openout6 = `main.nav'.
 
@@ -1367,10 +1406,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: E764ECB12AA007AC273D9AD5CF54FA12;564.
  ) 
 Here is how much of TeX's memory you used:
- 27071 strings out of 468994
- 552843 string characters out of 5459060
+ 26999 strings out of 468994
+ 551517 string characters out of 5459060
  922804 words of memory out of 5000000
- 55247 multiletter control sequences out of 15000+600000
+ 55211 multiletter control sequences out of 15000+600000
  674757 words of font info for 131 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
  101i,20n,107p,379b,823s stack positions out of 10000i,1000n,20000p,200000b,200000s
