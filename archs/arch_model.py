@@ -42,7 +42,10 @@ class FreMLP(nn.Module):
             nn.LeakyReLU(0.1, inplace=True),
             nn.Conv2d(expand * nc, nc, 1, 1, 0))
 
+    # cuFFT in fp16 only takes power-of-2 sizes, so this block always runs in fp32.
+    @torch.autocast("cuda", enabled=False)
     def forward(self, x):
+        x = x.float()
         _, _, H, W = x.shape
         x_freq = torch.fft.rfft2(x, norm='backward')
         mag = torch.abs(x_freq)
