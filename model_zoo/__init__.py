@@ -5,6 +5,8 @@ low-light enhancement models, all running on CPU or GPU without DDP.
 Models
 ------
 - DarkIR (CVPR 2025)          : models/DarkIR_384.pt   (this repo, width=32)
+- DarkIR-s (CVPR 2025)        : models/DarkIR_s.pt     (width=16, 0.87M params;
+                                authors' SharePoint, not on HuggingFace)
 - RetinexFormer (ICCV 2023)   : models/RetinexFormer_LOL_v2_real.pth
                                 (official LOLv2-real checkpoint; architecture
                                 already vendored in archs/retinexformer.py)
@@ -54,8 +56,11 @@ class Backend:
     paper: str = ""
     checkpoint: str = ""
     num_params: int = 0
+    trt_ok: bool = True  # False where TensorRT FP16 output was measured wrong on a T4
 
     def __init__(self, device: Optional[str] = None, precision: str = "fp32") -> None:
+        if precision == "trt-fp16" and not self.trt_ok:
+            raise ValueError(f"TensorRT FP16 cho {self.name} ra ảnh sai lệch — hãy chọn FP16.")
         self.device = pick_device(device)
         self.model.eval().to(self.device)
         self.precision = precision
@@ -114,9 +119,11 @@ class DarkIRBackend(DarkIREnhancer):
     name = "DarkIR"
     paper = "CVPR 2025"
     checkpoint = "models/DarkIR_384.pt"
+    width = 32
 
     def __init__(self, device: Optional[str] = None, precision: str = "fp32") -> None:
-        super().__init__(device=device, precision=precision)
+        super().__init__(weights=self.checkpoint, device=device, width=self.width,
+                         precision=precision)
         self.num_params = sum(p.numel() for p in self.model.parameters())
 
     def enhance_tensor(self, x: torch.Tensor, max_side: Optional[int] = None):
@@ -124,21 +131,32 @@ class DarkIRBackend(DarkIREnhancer):
             self.max_side = int(max_side)
         return DarkIREnhancer.enhance_tensor(self, x)
 
+    def enhance_array(self, image: np.ndarray, max_side: Optional[int] = None) -> np.ndarray:
+        if max_side is not None:
+            self.max_side = int(max_side)
+        return DarkIREnhancer.enhance_array(self, image)
+
     def enhance_pil(self, image: Image.Image,
                     max_side: Optional[int] = None) -> Image.Image:
         """Enhance a PIL image (DarkIREnhancer-style, kept for compatibility)."""
-        if max_side is not None:
-            self.max_side = int(max_side)
-        return Image.fromarray(self.enhance_array(np.array(image.convert("RGB"))))
+        return Image.fromarray(self.enhance_array(np.array(image.convert("RGB")), max_side))
 
     def _forward(self, x):  # keep DarkIREnhancer's own padding logic
         return self.model(x, side_loss=False)
+
+
+class DarkIRSmallBackend(DarkIRBackend):
+    name = "DarkIR-s"
+    paper = "CVPR 2025 · 0.87M"
+    checkpoint = "models/DarkIR_s.pt"  # not on HF; from the authors' SharePoint models folder
+    width = 16
 
 
 class RetinexFormerBackend(Backend):
     name = "RetinexFormer"
     paper = "ICCV 2023 · LOLv2-real"
     checkpoint = "models/RetinexFormer_LOL_v2_real.pth"
+    trt_ok = False  # mean |diff| 4.6/255 vs FP32
 
     def __init__(self, device: Optional[str] = None, precision: str = "fp32") -> None:
         from archs.retinexformer import RetinexFormer
@@ -179,6 +197,7 @@ class CIDNetBackend(Backend):
     name = "HVI-CIDNet"
     paper = "CVPR 2025 · LOLv2-real"
     checkpoint = "models/HVI_CIDNet_LOLv2_real.safetensors"
+    trt_ok = False  # mean |diff| 36.6/255 vs FP32
 
     def __init__(self, device: Optional[str] = None, precision: str = "fp32") -> None:
         from model_zoo.cidnet.CIDNet import CIDNet
@@ -209,9 +228,10 @@ class CIDNetBackend(Backend):
         return y
 
 
-_ORDER = ["DarkIR", "RetinexFormer", "HVI-CIDNet", "Zero-DCE++"]
+_ORDER = ["DarkIR", "DarkIR-s", "RetinexFormer", "HVI-CIDNet", "Zero-DCE++"]
 _CLASSES = {
     "DarkIR": DarkIRBackend,
+    "DarkIR-s": DarkIRSmallBackend,
     "RetinexFormer": RetinexFormerBackend,
     "HVI-CIDNet": CIDNetBackend,
     "Zero-DCE++": ZerodcePPBackend,
@@ -219,6 +239,7 @@ _CLASSES = {
 # Optional friendly metadata used by the UI/CLI
 _META = {
     "DarkIR": {"paper": "CVPR 2025", "ckpt": "DarkIR_384.pt"},
+    "DarkIR-s": {"paper": "CVPR 2025 (0.87M)", "ckpt": "DarkIR_s.pt"},
     "RetinexFormer": {"paper": "ICCV 2023", "ckpt": "RetinexFormer_LOL_v2_real.pth"},
     "HVI-CIDNet": {"paper": "CVPR 2025", "ckpt": "HVI_CIDNet_LOLv2_real.safetensors"},
     "Zero-DCE++": {"paper": "SRP 2021 (DCE++)", "ckpt": "ZeroDCE++_Epoch99.pth"},

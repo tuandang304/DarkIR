@@ -18,6 +18,9 @@ tar czf "$T/d.tgz" --exclude=./venv_DarkIR --exclude=./.git --exclude=__pycache_
 echo 'import subprocess;subprocess.run("cd /content && cat part_* > d.tgz && rm part_* && mkdir -p DarkIR && tar xzf d.tgz -C DarkIR",shell=True,check=True)' \
   | colab exec -s $S --timeout 300
 colab install -s $S gradio==5.12.0 gradio_client==1.5.4 huggingface_hub==0.36.2 ptflops==0.7.3
+# Torch-TensorRT must match Colab's torch major.minor (for the "TensorRT FP16" option).
+echo 'import torch,subprocess;v=".".join(torch.__version__.split("+")[0].split(".")[:2]);subprocess.run(["pip","install","-q",f"torch-tensorrt=={v}.*"],check=True)' \
+  | colab exec -s $S --timeout 600
 
 colab exec -s $S --timeout 240 <<'EOF'
 import subprocess, time

@@ -1475,7 +1475,7 @@ with gr.Blocks(
                     gr.Markdown(
                         "### So sánh các mô hình\n"
                         "Chạy cùng một ảnh qua nhiều mô hình khôi phục ảnh thiếu sáng "
-                        "(DarkIR, RetinexFormer, HVI-CIDNet, Zero-DCE++) và so sánh kết quả, "
+                        "(DarkIR, DarkIR-s, RetinexFormer, HVI-CIDNet, Zero-DCE++) và so sánh kết quả, "
                         "tham số và thời gian suy luận.",
                         elem_classes=["section-title"],
                     )

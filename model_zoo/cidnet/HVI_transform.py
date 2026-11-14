@@ -14,7 +14,6 @@ class RGB_HVI(nn.Module):
         self.this_k = 0
         
     @torch.autocast("cuda", enabled=False)  # eps=1e-8 and atan2 need fp32
-    @torch.compiler.disable  # boolean-mask writes break torch.compile / TensorRT
     def HVIT(self, img):
         img = img.float()
         eps = 1e-8
@@ -50,7 +49,6 @@ class RGB_HVI(nn.Module):
         return xyz
     
     @torch.autocast("cuda", enabled=False)  # eps=1e-8 and atan2 need fp32
-    @torch.compiler.disable  # boolean-mask writes break torch.compile / TensorRT
     def PHVIT(self, img):
         img = img.float()
         eps = 1e-8
