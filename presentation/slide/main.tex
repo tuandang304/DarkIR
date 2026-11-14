@@ -1,0 +1,166 @@
+\documentclass[
+    11pt, % Set the default font size, options include: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt
+    aspectratio=169, % Set the aspect ratio to a 16:9 ratio which matches the aspect ratio of 1080p and 4K screens and projectors
+]{beamer}
+
+% This template is inspired by the VT Presentation Template, as well as the THU Beamer Theme. Many thanks!
+
+\graphicspath{{images/}{./}} % Specifies where to look for included images (trailing slash required)
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule for better rules in tables
+% \usepackage{appendixnumberbeamer} % If you want a separate slide counter for your appendix
+\usepackage{fnpct} % Eliminate the unwanted space before the footnote mark
+\usepackage{tikz} % Washed-out title background, pipeline diagram
+\usetikzlibrary{arrows.meta, positioning}
+
+\setbeamerfont{footnote}{size=\tiny}
+
+%---------------------------------------------------------
+%	SELECT THEME & COLORS
+%---------------------------------------------------------
+\usetheme{Madrid} % You can use other themes too, but this changes many things. I've found Madrid to be the best for this color scheme
+
+% fg = foreground color
+% bg = background color
+
+% Many colors are linked to multiple attributes, change with caution!
+\definecolor{fptBlue}{RGB}{0, 75, 145} % FPT blue (darkened for contrast)
+\definecolor{fptOrange}{RGB}{243, 112, 33} % FPT orange
+
+\setbeamercolor*{structure}{bg=fptBlue, fg=fptBlue}
+% Title block and bottom right box color
+\setbeamercolor*{palette primary}{use=structure, fg=white,bg=fptBlue} % Bottom left box and bar between title & top bubbles
+\setbeamercolor*{palette secondary}{use=structure, fg=fptBlue, bg=white}
+% Probably not used
+\setbeamercolor*{palette tertiary}{use=structure, fg=white, bg=fptBlue} 
+
+% Title of each slide
+\setbeamercolor{frametitle}{bg=fptBlue, fg=white}
+\setbeamercolor*{titlelike}{parent=palette primary}
+
+%%% Headline and Central Footer %%%
+% You can change the theme back and forth for each frame
+% Theme I - white head, white foot
+    % \setbeamercolor{section in head/foot}{fg=fptOrange, bg=white}
+    % \setbeamercolor{headline}{fg=fptOrange, bg=white}
+% Theme II - gold head, gold foot (as shown in the title frame)
+    \setbeamercolor{section in head/foot}{fg=white, bg=fptOrange}
+    \setbeamercolor{headline}{fg=white, bg=fptOrange}
+% Theme III - white head, gold foot (as shown in the rest of the frames)
+    % \setbeamercolor{section in head/foot}{fg=fptOrange, bg=white}
+    % \setbeamercolor{title in head/foot}{fg=white, bg=fptOrange}
+    % \setbeamercolor{headline}{fg=fptOrange, bg=white}
+
+%%% Specific Colors %%%
+\setbeamercolor{item projected}{bg=fptOrange}
+\setbeamertemplate{enumerate items}{bg=fptOrange}
+
+\setbeamercolor{itemize item}{fg=fptOrange}
+\setbeamercolor{itemize subitem}{fg=fptOrange}
+
+\setbeamercolor{button}{bg=fptOrange}
+
+%%% Edits ONLY the TOC slide %%%
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=black}
+
+%%% Block Colors %%%
+% Standard block
+    \setbeamercolor{block title}{bg=fptOrange, fg=white}
+    \setbeamercolor{block body}{bg=fptOrange!20}
+% Alerted block
+    \setbeamercolor{block title alerted}{bg=orange, fg=white}
+    \setbeamercolor{block body alerted}{bg=orange!10}
+% Example block
+    \setbeamercolor{block title example}{bg=fptBlue, fg=white}
+    \setbeamercolor{block body example}{bg=fptBlue!10}
+
+%---------------------------------------------------------
+%	SELECT THE FONT THEME & FONTS
+%---------------------------------------------------------
+\usefonttheme{default} % Typeset using the default sans serif font
+\usepackage{palatino} % Use the Palatino font for serif text
+\IfFileExists{opensans.sty}{\usepackage[default]{opensans}}{} % Open Sans for sans serif text, if installed
+\useinnertheme{circles}
+
+%---------------------------------------------------------
+%	SELECT THE OUTER THEME
+%---------------------------------------------------------
+% Outer themes change the overall layout of slides, such as header and footer lines, sidebars and slide titles. Uncomment each theme in turns to see what changes it makes to your presentation.
+
+% \useoutertheme{default}
+\useoutertheme{miniframes}
+% \useoutertheme{infolines}
+% \useoutertheme{smoothbars}
+% \useoutertheme{sidebar}
+% \useoutertheme{split}
+% \useoutertheme{shadow}
+% \useoutertheme{tree}
+% \useoutertheme{smoothtree}
+
+%---------------------------------------------------------
+%	PRESENTATION INFORMATION
+%---------------------------------------------------------
+\title[NightClear]{NightClear: Robust Low-Light Image Restoration}
+% Click the middle footer can switch between the first and last numbered frame
+\subtitle{Joint low-light enhancement and deblurring for night photography}
+\author[Duc, Truong, Tuan]{\texorpdfstring{%
+    \begin{tabular}{ll}
+        Mai Xuan Duc & SE196257 \\
+        Phan Minh Nhat Truong & SE196744 \\
+        Dang Thanh Tuan & SE196418
+    \end{tabular}}{Mai Xuan Duc, Phan Minh Nhat Truong, Dang Thanh Tuan}}
+
+\institute[FPTU]{Supervisor: Mr. Nguyen Trong Tai \quad$\cdot$\quad FPT University}
+\date[15/11/2026]{November 15, 2026}
+
+% School logo: shown at the top-right of the headline; \logo{} hides it for a frame
+\newcommand{\fptlogo}{\includegraphics[height=0.6cm]{Logo_FPT_Education.png}}
+\logo{\fptlogo}
+
+
+%---------------------------------------------------------
+%	EXTRA SETTINGS
+%---------------------------------------------------------
+
+% Clear warnings related to \translate
+%     https://github.com/josephwright/beamer/issues/449
+\pdfstringdefDisableCommands{
+    \def\translate#1{#1}
+}
+
+% Simple header: logo on the left, current section name on the right (plain text, no links)
+% Section name in the header: larger and bold so it reads on a projector
+\setbeamerfont{section in head/foot}{size=\small, series=\bfseries}
+\setbeamertemplate{headline}{%
+    \nointerlineskip
+    \begin{beamercolorbox}[wd=\paperwidth,ht=1cm,dp=0pt]{headline}%
+        % both boxes are vertically centred in the 1cm header so the logo never touches the title bar
+        \raisebox{0.5cm}{\parbox[c]{0.5\paperwidth}{\hspace*{2mm}\insertlogo}}%
+        \hfill\raisebox{0.5cm}{\parbox[c]{0.48\paperwidth}{\raggedleft\usebeamerfont{section in head/foot}\insertsectionhead\hspace*{4mm}}}%
+    \end{beamercolorbox}%
+}
+% Logo lives in the headline, not the bottom-right corner
+\setbeamertemplate{sidebar right}{}
+
+% Disable navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%---------------------------------------------------------
+%   DOCUMENT BEGINS
+%---------------------------------------------------------
+\begin{document}
+
+\input{01-title.tex}
+\input{02-contents.tex}
+\input{03-problem.tex}
+\input{04-data.tex}
+\input{05-method.tex}
+\input{06-results.tex}
+\input{07-interpretability.tex}
+\input{08-demo.tex}
+\input{09-conclusion.tex}
+\input{10-references.tex}
+\input{11-appendix.tex}
+\input{12-thanks.tex}
+
+\end{document}

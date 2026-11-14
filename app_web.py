@@ -1286,8 +1286,8 @@ footer .built-with { display: none !important; }
 
 HEADER_HTML = """
 <div class="hero">
-  <div class="hero-eyebrow">CVPR 2025 · CIDAUT AI</div>
-  <h1 class="darkir-title">DarkIR</h1>
+  <div class="hero-eyebrow">FPT University</div>
+  <h1 class="darkir-title">NightClear</h1>
   <p class="darkir-sub">Robust Low-Light Image Restoration</p>
   <div class="hero-links">
     <a href="https://github.com/Fundacion-Cidaut/DarkIR" target="_blank" rel="noopener">GitHub ↗</a>
@@ -1297,7 +1297,7 @@ HEADER_HTML = """
   </div>
   <div class="hero-pills">
     <span class="pill">Thiết bị <b>CPU</b></span>
-    <span class="pill">Mô hình <b>DarkIR-m</b></span>
+    <span class="pill">Mô hình <b>NightClear-m</b></span>
     <span class="pill">Tham số <b>3.31 M</b></span>
     <span class="pill">All-in-one <b>sáng · nét · khử nhiễu</b></span>
   </div>
@@ -1358,7 +1358,7 @@ CREDIT_HTML = """
 with gr.Blocks(
     theme=THEME,
     css=CSS,
-    title="DarkIR — Robust Low-Light Image Restoration",
+    title="NightClear — Robust Low-Light Image Restoration",
     analytics_enabled=False,
 ) as demo:
     gr.HTML(HEADER_HTML)
