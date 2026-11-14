@@ -142,6 +142,19 @@
 % Logo lives in the headline, not the bottom-right corner
 \setbeamertemplate{sidebar right}{}
 
+% Footer: two equal halves, plain text (no author box, no links)
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.5\paperwidth, ht=2.5ex, dp=1ex, center]{title in head/foot}%
+            \usebeamerfont{title in head/foot}\inserttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.5\paperwidth, ht=2.5ex, dp=1ex, center]{date in head/foot}%
+            \usebeamerfont{date in head/foot}FPT University \quad$\cdot$\quad \insertshortdate \quad$\cdot$\quad \insertframenumber{} / \inserttotalframenumber
+        \end{beamercolorbox}}%
+    \vskip0pt%
+}
+
 % Disable navigation symbols
 \setbeamertemplate{navigation symbols}{}
 

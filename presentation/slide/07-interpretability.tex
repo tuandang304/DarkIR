@@ -4,7 +4,7 @@
 %---------------------------------------------------------
 \begin{frame}
     \frametitle{Model Interpretability (1/2): Which Components Matter?}
-    \framesubtitle{Component importance = PSNR lost when a part is removed or replaced (paper ablations)}
+    \framesubtitle{Component importance = PSNR lost when a part is removed or replaced}
 
     \begin{center}
         \includegraphics[width=\textwidth, height=0.47\textheight, keepaspectratio]{results/ablation.png}
@@ -14,7 +14,7 @@
         \item Using the \textbf{same block everywhere} costs up to 0.73\,dB: the encoder (illumination) and the decoder (deblurring) need different designs.
         \item The low-res supervision $\mathcal{L}_{\text{low-res}}$ only helps together with the perceptual and edge losses (all four terms give the best PSNR).
     \end{itemize}
-    {\tiny Table 6 and A: 256\,px training crops, full model 26.90\,dB; Table 7: full model 27.00\,dB.}
+    {\tiny Ablations trained on 256\,px crops (full model 26.90\,dB); Di-SpAM $\rightarrow$ LKA row vs.\ 27.00\,dB.}
 \end{frame}
 
 \begin{frame}
@@ -34,7 +34,7 @@
         \end{column}
         \begin{column}{0.43\textwidth}
             \footnotesize
-            $\Rightarrow$ This explains the design: \textbf{FreMLP} edits only the amplitude, and letting it change the phase too \textbf{lowers PSNR by 0.60\,dB} (Table 6).
+            $\Rightarrow$ This explains the design: \textbf{FreMLP} edits only the amplitude, and letting it change the phase too \textbf{lowers PSNR by 0.60\,dB}.
         \end{column}
     \end{columns}
 \end{frame}

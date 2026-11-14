@@ -116,7 +116,7 @@ class Backend:
 
 
 class DarkIRBackend(DarkIREnhancer):
-    name = "DarkIR"
+    name = "NightClear"
     paper = "CVPR 2025"
     checkpoint = "models/DarkIR_384.pt"
     width = 32
@@ -146,7 +146,7 @@ class DarkIRBackend(DarkIREnhancer):
 
 
 class DarkIRSmallBackend(DarkIRBackend):
-    name = "DarkIR-s"
+    name = "NightClear-s"
     paper = "CVPR 2025 · 0.87M"
     checkpoint = "models/DarkIR_s.pt"  # not on HF; from the authors' SharePoint models folder
     width = 16
@@ -228,18 +228,18 @@ class CIDNetBackend(Backend):
         return y
 
 
-_ORDER = ["DarkIR", "DarkIR-s", "RetinexFormer", "HVI-CIDNet", "Zero-DCE++"]
+_ORDER = ["NightClear", "NightClear-s", "RetinexFormer", "HVI-CIDNet", "Zero-DCE++"]
 _CLASSES = {
-    "DarkIR": DarkIRBackend,
-    "DarkIR-s": DarkIRSmallBackend,
+    "NightClear": DarkIRBackend,
+    "NightClear-s": DarkIRSmallBackend,
     "RetinexFormer": RetinexFormerBackend,
     "HVI-CIDNet": CIDNetBackend,
     "Zero-DCE++": ZerodcePPBackend,
 }
 # Optional friendly metadata used by the UI/CLI
 _META = {
-    "DarkIR": {"paper": "CVPR 2025", "ckpt": "DarkIR_384.pt"},
-    "DarkIR-s": {"paper": "CVPR 2025 (0.87M)", "ckpt": "DarkIR_s.pt"},
+    "NightClear": {"paper": "CVPR 2025", "ckpt": "DarkIR_384.pt"},
+    "NightClear-s": {"paper": "CVPR 2025 (0.87M)", "ckpt": "DarkIR_s.pt"},
     "RetinexFormer": {"paper": "ICCV 2023", "ckpt": "RetinexFormer_LOL_v2_real.pth"},
     "HVI-CIDNet": {"paper": "CVPR 2025", "ckpt": "HVI_CIDNet_LOLv2_real.safetensors"},
     "Zero-DCE++": {"paper": "SRP 2021 (DCE++)", "ckpt": "ZeroDCE++_Epoch99.pth"},

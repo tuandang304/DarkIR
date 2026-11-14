@@ -137,7 +137,7 @@ def get_enhancer(
         _ENHANCER = None
         _ENHANCER_KEY = None
         if progress is not None:
-            progress(0.03, desc="Đang nạp mô hình DarkIR...")
+            progress(0.03, desc="Đang nạp mô hình NightClear...")
         enhancer = DarkIREnhancer(
             weights=weights or None,
             device=_resolve_device(device),
@@ -176,7 +176,7 @@ def _stats_html(enhancer: DarkIREnhancer | None = None, error: str | None = None
         weights = enhancer.weights_path.name
         side = f"{enhancer.max_side} px" if enhancer.max_side else "gốc"
         norm = "bật" if enhancer.normalize else "tắt"
-        footer = f'<div class="stat-note">Checkpoint: <code>{html.escape(str(enhancer.weights_path))}</code></div>'
+        footer = ""
     else:
         dot = "idle"
         device = "—"
@@ -217,10 +217,7 @@ def _stats_backend(backend) -> str:
     side = getattr(backend, "max_side", None)
     side = f"{side} px" if side else "gốc"
     norm = "bật" if getattr(backend, "normalize", False) else "tắt"
-    footer = (
-        f'<div class="stat-note">Checkpoint: <code>{html.escape(ckpt)}</code></div>'
-        if ckpt else ""
-    )
+    footer = ""
     return f"""
 <div class="stat-list">
   <div class="stat-row"><span>Mô hình</span><b>{html.escape(str(name))}</b></div>
@@ -400,7 +397,7 @@ def about_specs_html() -> str:
   <div class="stat-row"><span>Thiết bị khả dụng</span><b>{html.escape(gpu)}</b></div>
   <div class="stat-row"><span>PyTorch</span><b>{html.escape(torch.__version__)}</b></div>
   <div class="stat-row"><span>Checkpoint</span><b>{html.escape(str(weights.relative_to(REPO_DIR)))} ({exists}, {size})</b></div>
-  <div class="stat-row"><span>Kiến trúc</span><b>DarkIR-m · width 32 · 3.31 M params</b></div>
+  <div class="stat-row"><span>Kiến trúc</span><b>NightClear-m · width 32 · 3.31 M params</b></div>
   <div class="stat-row"><span>Thư mục tạm</span><b>{html.escape(str(_TEMP_ROOT))}</b></div>
 </div>
 <div class="stat-note">Bảng “Thông số” trực tiếp (thiết bị / tham số / checkpoint đang dùng) nằm ở thanh bên trái và cập nhật sau mỗi lần chạy.</div>
@@ -429,13 +426,13 @@ def run_single(image, model_name, device, max_side, normalize, weights, precisio
     if image is None:
         raise gr.Error("Vui lòng tải lên hoặc kéo thả một ảnh trước khi khôi phục.")
     if model_name not in LIST_MODELS():
-        model_name = "DarkIR"
+        model_name = "NightClear"
 
     pil_image = ImageOps.exif_transpose(image).convert("RGB")
     width, height = pil_image.size
     start = time.perf_counter()
 
-    if model_name == "DarkIR":
+    if model_name == "NightClear":
         try:
             model = get_enhancer(device, max_side, normalize, weights, precision, progress=progress)
         except Exception as exc:  # noqa: BLE001
@@ -496,7 +493,7 @@ def run_batch(files, selected_models, device, max_side, normalize, weights, prec
     if not files:
         raise gr.Error("Vui lòng chọn ít nhất một ảnh (có thể chọn nhiều ảnh cùng lúc).")
 
-    models = _clean_selection(selected_models, default="DarkIR")
+    models = _clean_selection(selected_models, default="NightClear")
 
     paths: list[Path] = []
     for item in files:
@@ -513,7 +510,7 @@ def run_batch(files, selected_models, device, max_side, normalize, weights, prec
 
     def _model_for(name: str):
         if name not in runners:
-            if name == "DarkIR":
+            if name == "NightClear":
                 runners[name] = get_enhancer(device, max_side, normalize, weights, precision,
                                              progress=progress)
             else:
@@ -561,7 +558,7 @@ def run_batch(files, selected_models, device, max_side, normalize, weights, prec
             )
             try:
                 model = _model_for(model_name)
-                if model_name == "DarkIR":
+                if model_name == "NightClear":
                     restored = model.enhance_pil(original)
                 else:
                     restored = model.enhance_pil(original,
@@ -600,8 +597,8 @@ def run_batch(files, selected_models, device, max_side, normalize, weights, prec
     if failures:
         status += f" · ⚠️ {len(failures)} lỗi: " + ", ".join(failures[:3])
 
-    if "DarkIR" in runners:
-        stats = _stats_html(runners["DarkIR"])
+    if "NightClear" in runners:
+        stats = _stats_html(runners["NightClear"])
     else:
         stats = _stats_backend(runners[models[0]])
 
@@ -645,7 +642,7 @@ def run_video(video, model_name, max_seconds, device, max_side, normalize, weigh
     import cv2
 
     if model_name not in LIST_MODELS():
-        model_name = "DarkIR"
+        model_name = "NightClear"
     source_path = _coerce_path(video)
     if not source_path:
         raise gr.Error("Vui lòng tải lên một video trước khi xử lý.")
@@ -688,7 +685,7 @@ def run_video(video, model_name, max_seconds, device, max_side, normalize, weigh
         out_h = max(2, int(round(src_h * scale)) // 2 * 2)
 
         try:
-            if model_name == "DarkIR":
+            if model_name == "NightClear":
                 model = get_enhancer(device, max_side, normalize, weights, precision, progress=progress)
             else:
                 model = get_backend(model_name, device=_resolve_device(device), precision=precision)
@@ -758,7 +755,7 @@ def run_video(video, model_name, max_seconds, device, max_side, normalize, weigh
             str(final_path),
             gr.update(visible=True, value=str(final_path)),
             status,
-            _stats_html(model) if model_name == "DarkIR" else _stats_backend(model),
+            _stats_html(model) if model_name == "NightClear" else _stats_backend(model),
         )
     finally:
         capture.release()
@@ -769,7 +766,7 @@ def run_webcam(frame, model_name, device, max_side, normalize, weights, precisio
     if frame is None:
         return None
     try:
-        if model_name == "DarkIR":
+        if model_name == "NightClear":
             return get_enhancer(device, max_side, normalize, weights, precision).enhance_array(frame)
         return get_backend(model_name, device=_resolve_device(device), precision=precision).enhance_array(
             frame, max_side=max_side or None
@@ -812,7 +809,7 @@ def run_compare(image, selected_models, device, max_side, normalize, export_zip,
         try:
             progress(base, desc=f"Nạp mô hình {name}...")
             backend = get_backend(name, device=_resolve_device(device), precision=precision)
-            if name == "DarkIR":
+            if name == "NightClear":
                 # Normalize only exists on DarkIR; other backends ignore it.
                 backend.normalize = bool(normalize)
             progress(base + 0.2 / total, desc=f"Đang khôi phục với {name}...")
@@ -1289,12 +1286,6 @@ HEADER_HTML = """
   <div class="hero-eyebrow">FPT University</div>
   <h1 class="darkir-title">NightClear</h1>
   <p class="darkir-sub">Robust Low-Light Image Restoration</p>
-  <div class="hero-links">
-    <a href="https://github.com/Fundacion-Cidaut/DarkIR" target="_blank" rel="noopener">GitHub ↗</a>
-    <a href="https://arxiv.org/abs/2412.13443" target="_blank" rel="noopener">Paper (arXiv) ↗</a>
-    <a href="https://huggingface.co/Cidaut/DarkIR" target="_blank" rel="noopener">Checkpoint (HuggingFace) ↗</a>
-    <a href="https://huggingface.co/spaces/Cidaut/DarkIR" target="_blank" rel="noopener">Demo gốc ↗</a>
-  </div>
   <div class="hero-pills">
     <span class="pill">Thiết bị <b>CPU</b></span>
     <span class="pill">Mô hình <b>NightClear-m</b></span>
@@ -1348,7 +1339,7 @@ CREDIT_HTML = """
 <div class="credit-line">
   Ảnh / video được xử lý cục bộ trên máy của bạn · không gửi dữ liệu lên cloud.
   Mô hình &amp; mã nguồn: <a href="https://github.com/Fundacion-Cidaut/DarkIR" target="_blank" rel="noopener">Fundacion Cidaut / DarkIR</a>
-  · Giao diện Gradio: DarkIR local UI.
+  · Giao diện Gradio: NightClear local UI.
 </div>
 """
 
@@ -1393,19 +1384,14 @@ with gr.Blocks(
                 )
                 normalize_cb = gr.Checkbox(
                     value=False,
-                    label="Chuẩn hoá tương phản từng ảnh (chỉ DarkIR)",
+                    label="Chuẩn hoá tương phản từng ảnh (chỉ NightClear)",
                     info=(
                         "Min-max stretch trước khi suy luận; hữu ích với ảnh cực tối. "
-                        "Lưu ý: chỉ áp dụng cho DarkIR — các mô hình khác luôn dùng "
+                        "Lưu ý: chỉ áp dụng cho NightClear — các mô hình khác luôn dùng "
                         "checkpoint chính thức của chúng."
                     ),
                 )
-                weights_tb = gr.Textbox(
-                    value=DEFAULT_WEIGHTS,
-                    label="Checkpoint",
-                    placeholder="models/DarkIR_384.pt",
-                    info="Đường dẫn tới file .pt (tương đối với thư mục repo).",
-                )
+                weights_tb = gr.State(DEFAULT_WEIGHTS)  # fixed default checkpoint, not user-editable
                 load_btn = gr.Button("Nạp / kiểm tra mô hình", variant="secondary", size="md")
 
             stats_html = gr.HTML(_stats_html(None))
@@ -1433,10 +1419,10 @@ with gr.Blocks(
                     with gr.Row():
                         single_model = gr.Radio(
                             choices=LIST_MODELS(),
-                            value="DarkIR",
+                            value="NightClear",
                             label="Mô hình khôi phục",
                             info=(
-                                "DarkIR dùng checkpoint & tuỳ chọn chuẩn hoá ở thanh bên; "
+                                "NightClear dùng checkpoint mặc định & tuỳ chọn chuẩn hoá ở thanh bên; "
                                 "các mô hình khác dùng checkpoint chính thức của chúng "
                                 "(model_zoo)."
                             ),
@@ -1475,7 +1461,7 @@ with gr.Blocks(
                     gr.Markdown(
                         "### So sánh các mô hình\n"
                         "Chạy cùng một ảnh qua nhiều mô hình khôi phục ảnh thiếu sáng "
-                        "(DarkIR, DarkIR-s, RetinexFormer, HVI-CIDNet, Zero-DCE++) và so sánh kết quả, "
+                        "(NightClear, NightClear-s, RetinexFormer, HVI-CIDNet, Zero-DCE++) và so sánh kết quả, "
                         "tham số và thời gian suy luận.",
                         elem_classes=["section-title"],
                     )
@@ -1539,7 +1525,7 @@ with gr.Blocks(
                     )
                     batch_models = gr.CheckboxGroup(
                         choices=LIST_MODELS(),
-                        value=["DarkIR"],
+                        value=["NightClear"],
                         label="Mô hình",
                         info=(
                             "Chọn nhiều mô hình để chạy tất cả ảnh qua từng mô hình; "
@@ -1595,9 +1581,9 @@ with gr.Blocks(
                     with gr.Row():
                         video_model = gr.Radio(
                             choices=LIST_MODELS(),
-                            value="DarkIR",
+                            value="NightClear",
                             label="Mô hình khôi phục",
-                            info="DarkIR dùng checkpoint ở thanh bên; mô hình khác dùng checkpoint chính thức.",
+                            info="NightClear dùng checkpoint mặc định; mô hình khác dùng checkpoint chính thức.",
                         )
                         max_seconds_slider = gr.Slider(
                             minimum=0,
@@ -1643,7 +1629,7 @@ with gr.Blocks(
                         elem_classes=["section-title"],
                     )
                     webcam_model = gr.Radio(
-                        choices=LIST_MODELS(), value="DarkIR", label="Mô hình khôi phục"
+                        choices=LIST_MODELS(), value="NightClear", label="Mô hình khôi phục"
                     )
                     with gr.Row():
                         webcam_in = gr.Image(
@@ -1669,8 +1655,6 @@ with gr.Blocks(
 
     for component in (device_dd, precision_dd, max_side_slider, normalize_cb):
         component.change(invalidate_model, inputs=None, outputs=[stats_html])
-    weights_tb.submit(invalidate_model, inputs=None, outputs=[stats_html])
-    weights_tb.blur(invalidate_model, inputs=None, outputs=[stats_html])
 
     single_btn.click(
         run_single,
@@ -1738,7 +1722,7 @@ with gr.Blocks(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="DarkIR Gradio web UI")
+    parser = argparse.ArgumentParser(description="NightClear Gradio web UI")
     parser.add_argument("--port", type=int, default=7860, help="Cổng HTTP (mặc định: 7860)")
     parser.add_argument("--host", default="0.0.0.0", help="Địa chỉ bind (mặc định: 0.0.0.0)")
     parser.add_argument("--share", action="store_true", help="Tạo link public qua Gradio")

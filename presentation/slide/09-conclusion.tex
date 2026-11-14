@@ -11,7 +11,7 @@
             \textbf{Limitations}
             \begin{itemize}
                 \item Depthwise convs: few MACs but not GPU-friendly, so speed gains are smaller than compute gains
-                \item No runtime numbers in the paper
+                \item No runtime benchmark yet (only MACs / parameters)
                 \item Not best on every metric (SSIM/LPIPS on LOLBlur, real photos)
                 \item Real/synthetic gap in the data (EDA)
                 \item Our app: TensorRT disabled for RetinexFormer / HVI-CIDNet (wrong outputs); NightClear-s weights not bundled
@@ -38,8 +38,4 @@
         \item \textbf{Efficient by design}: Fourier-amplitude encoder + dilated decoder give the best LOLBlur PSNR at 7.25 GMACs; our EDA and amplitude-swap test show why.
         \item \textbf{Deployable}: a web app with 5 models, video/webcam and FP16/TensorRT, runnable on CPU or a free GPU.
     \end{enumerate}
-    \vspace{6mm}
-    \begin{center}
-        {\Huge\bfseries\color{fptBlue} Questions?}
-    \end{center}
 \end{frame}

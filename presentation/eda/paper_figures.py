@@ -81,7 +81,7 @@ fig.tight_layout(); fig.savefig(OUT / "cascade.png"); plt.close(fig)
 arch = [  # Table 6, full DarkIR-m = 26.90 at 256px crops; Table 7 row uses its own baseline 27.00
     ("All blocks = EBlock", 26.17 - 26.90), ("Decoder = NAFBlock", 26.23 - 26.90),
     ("All blocks = NAFBlock", 26.24 - 26.90), ("FreMLP also edits phase", 26.30 - 26.90),
-    ("Di-SpAM → LKA (Table 7)", 26.45 - 27.00), ("Encoder = NAFBlock", 26.51 - 26.90),
+    ("Di-SpAM → LKA", 26.45 - 27.00), ("Encoder = NAFBlock", 26.51 - 26.90),
     ("No extra depthwise in DBlock", 26.63 - 26.90), ("All blocks = DBlock", 26.68 - 26.90),
 ]
 loss = [  # Table A, full loss = 26.9
@@ -89,7 +89,7 @@ loss = [  # Table A, full loss = 26.9
     ("L1 + Percep + Edge (no L_lol)", 26.61 - 26.9), ("L1 + L_lol + Edge", 26.717 - 26.9),
 ]
 fig, axes = plt.subplots(1, 2, figsize=(12, 4.2), gridspec_kw={"width_ratios": [1.45, 1]})
-for ax, rows, title in ((axes[0], arch, "Architecture change (Tables 6–7)"), (axes[1], loss, "Loss terms used (Table A)")):
+for ax, rows, title in ((axes[0], arch, "Architecture change"), (axes[1], loss, "Loss terms used")):
     names = [r[0] for r in rows][::-1]; vals = [r[1] for r in rows][::-1]
     bars = ax.barh(names, vals, height=0.6, color=BLUE)
     for b, v in zip(bars, vals):

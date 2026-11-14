@@ -221,7 +221,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: input not found: {input_path}", file=sys.stderr)
         return 2
 
-    model_names = LIST_MODELS() if args.compare else (args.model or ["DarkIR"])
+    model_names = LIST_MODELS() if args.compare else (args.model or ["NightClear"])
 
     if input_path.is_file() and input_path.suffix.lower() in VIDEO_EXTENSIONS:
         is_video = True
