@@ -122,13 +122,14 @@ def get_enhancer(
     max_side: float | int | None,
     normalize: bool,
     weights: str | None,
+    precision: str = "fp32",
     progress: gr.Progress | None = None,
 ) -> DarkIREnhancer:
     """Load (or reuse) the DarkIR model. Cache key = all inference settings."""
     global _ENHANCER, _ENHANCER_KEY
 
     side = int(max_side or 0)
-    key = (str(weights or DEFAULT_WEIGHTS), str(device or "auto"), side, bool(normalize))
+    key = (str(weights or DEFAULT_WEIGHTS), str(device or "auto"), side, bool(normalize), precision)
     with _MODEL_LOCK:
         if _ENHANCER is not None and _ENHANCER_KEY == key:
             return _ENHANCER
@@ -142,6 +143,7 @@ def get_enhancer(
             device=_resolve_device(device),
             max_side=side or None,
             normalize=bool(normalize),
+            precision=precision,
         )
         _ENHANCER = enhancer
         _ENHANCER_KEY = key
@@ -408,10 +410,10 @@ def about_specs_html() -> str:
 # --------------------------------------------------------------------------
 # Handlers
 # --------------------------------------------------------------------------
-def load_model_click(device, max_side, normalize, weights):
+def load_model_click(device, max_side, normalize, weights, precision):
     start = time.perf_counter()
     try:
-        enhancer = get_enhancer(device, max_side, normalize, weights)
+        enhancer = get_enhancer(device, max_side, normalize, weights, precision)
     except Exception as exc:  # noqa: BLE001 - surfaced in the UI instead of crashing
         gr.Warning(f"Không nạp được mô hình: {exc}")
         return _stats_html(None, error=str(exc))
@@ -422,7 +424,7 @@ def load_model_click(device, max_side, normalize, weights):
     )
 
 
-def run_single(image, model_name, device, max_side, normalize, weights,
+def run_single(image, model_name, device, max_side, normalize, weights, precision,
                progress=gr.Progress()):
     if image is None:
         raise gr.Error("Vui lòng tải lên hoặc kéo thả một ảnh trước khi khôi phục.")
@@ -435,7 +437,7 @@ def run_single(image, model_name, device, max_side, normalize, weights,
 
     if model_name == "DarkIR":
         try:
-            model = get_enhancer(device, max_side, normalize, weights, progress=progress)
+            model = get_enhancer(device, max_side, normalize, weights, precision, progress=progress)
         except Exception as exc:  # noqa: BLE001
             raise gr.Error(f"Không nạp được mô hình: {exc}") from exc
         progress(0.15, desc="Đang khôi phục ảnh...")
@@ -446,7 +448,7 @@ def run_single(image, model_name, device, max_side, normalize, weights,
         stats = _stats_html(model)
     else:
         try:
-            model = get_backend(model_name, device=_resolve_device(device))
+            model = get_backend(model_name, device=_resolve_device(device), precision=precision)
         except Exception as exc:  # noqa: BLE001
             raise gr.Error(f"Không nạp được mô hình {model_name}: {exc}") from exc
         progress(0.15, desc=f"Đang khôi phục ảnh với {model_name}...")
@@ -489,7 +491,7 @@ def clear_single():
     )
 
 
-def run_batch(files, selected_models, device, max_side, normalize, weights,
+def run_batch(files, selected_models, device, max_side, normalize, weights, precision,
               progress=gr.Progress()):
     if not files:
         raise gr.Error("Vui lòng chọn ít nhất một ảnh (có thể chọn nhiều ảnh cùng lúc).")
@@ -512,10 +514,10 @@ def run_batch(files, selected_models, device, max_side, normalize, weights,
     def _model_for(name: str):
         if name not in runners:
             if name == "DarkIR":
-                runners[name] = get_enhancer(device, max_side, normalize, weights,
+                runners[name] = get_enhancer(device, max_side, normalize, weights, precision,
                                              progress=progress)
             else:
-                runners[name] = get_backend(name, device=_resolve_device(device))
+                runners[name] = get_backend(name, device=_resolve_device(device), precision=precision)
         return runners[name]
 
     try:
@@ -638,7 +640,7 @@ def _finalize_video(raw_path: Path, source_path: Path) -> Path:
     return final
 
 
-def run_video(video, model_name, max_seconds, device, max_side, normalize, weights,
+def run_video(video, model_name, max_seconds, device, max_side, normalize, weights, precision,
               progress=gr.Progress()):
     import cv2
 
@@ -687,9 +689,9 @@ def run_video(video, model_name, max_seconds, device, max_side, normalize, weigh
 
         try:
             if model_name == "DarkIR":
-                model = get_enhancer(device, max_side, normalize, weights, progress=progress)
+                model = get_enhancer(device, max_side, normalize, weights, precision, progress=progress)
             else:
-                model = get_backend(model_name, device=_resolve_device(device))
+                model = get_backend(model_name, device=_resolve_device(device), precision=precision)
         except Exception as exc:  # noqa: BLE001
             raise gr.Error(f"Không nạp được mô hình: {exc}") from exc
 
@@ -762,15 +764,18 @@ def run_video(video, model_name, max_seconds, device, max_side, normalize, weigh
         capture.release()
 
 
-def run_webcam(frame, model_name, device, max_side, normalize, weights):
+def run_webcam(frame, model_name, device, max_side, normalize, weights, precision):
     """Enhance one streamed webcam frame (RGB uint8 numpy)."""
     if frame is None:
         return None
-    if model_name == "DarkIR":
-        return get_enhancer(device, max_side, normalize, weights).enhance_array(frame)
-    return get_backend(model_name, device=_resolve_device(device)).enhance_array(
-        frame, max_side=max_side or None
-    )
+    try:
+        if model_name == "DarkIR":
+            return get_enhancer(device, max_side, normalize, weights, precision).enhance_array(frame)
+        return get_backend(model_name, device=_resolve_device(device), precision=precision).enhance_array(
+            frame, max_side=max_side or None
+        )
+    except Exception as exc:  # noqa: BLE001
+        raise gr.Error(f"Không xử lý được khung hình: {exc}") from exc
 
 
 def clear_video():
@@ -780,7 +785,7 @@ def clear_video():
 # --------------------------------------------------------------------------
 # Compare tab (multiple models on one image)
 # --------------------------------------------------------------------------
-def run_compare(image, selected_models, device, max_side, normalize, export_zip,
+def run_compare(image, selected_models, device, max_side, normalize, export_zip, precision,
                 progress=gr.Progress()):
     if image is None:
         raise gr.Error("Vui lòng tải lên hoặc kéo thả một ảnh trước khi so sánh.")
@@ -806,7 +811,7 @@ def run_compare(image, selected_models, device, max_side, normalize, export_zip,
         base = 0.05 + 0.88 * index / total
         try:
             progress(base, desc=f"Nạp mô hình {name}...")
-            backend = get_backend(name, device=_resolve_device(device))
+            backend = get_backend(name, device=_resolve_device(device), precision=precision)
             if name == "DarkIR":
                 # Normalize only exists on DarkIR; other backends ignore it.
                 backend.normalize = bool(normalize)
@@ -1368,6 +1373,16 @@ with gr.Blocks(
                     label="Thiết bị",
                     info="Tự động chọn CUDA nếu có, ngược lại dùng CPU.",
                 )
+                precision_dd = gr.Dropdown(
+                    choices=[("FP32", "fp32"), ("FP16 (autocast)", "fp16"),
+                             ("TensorRT FP16", "trt-fp16")],
+                    value="fp32",
+                    label="Độ chính xác",
+                    info=(
+                        "FP16/TensorRT chỉ chạy trên GPU. TensorRT build engine ở lần chạy đầu "
+                        "và build lại cho mỗi kích thước ảnh mới — hợp với Webcam/Video."
+                    ),
+                )
                 max_side_slider = gr.Slider(
                     minimum=0,
                     maximum=2560,
@@ -1648,18 +1663,18 @@ with gr.Blocks(
     # ---------------------------------------------------------------- events
     load_btn.click(
         load_model_click,
-        inputs=[device_dd, max_side_slider, normalize_cb, weights_tb],
+        inputs=[device_dd, max_side_slider, normalize_cb, weights_tb, precision_dd],
         outputs=[stats_html],
     )
 
-    for component in (device_dd, max_side_slider, normalize_cb):
+    for component in (device_dd, precision_dd, max_side_slider, normalize_cb):
         component.change(invalidate_model, inputs=None, outputs=[stats_html])
     weights_tb.submit(invalidate_model, inputs=None, outputs=[stats_html])
     weights_tb.blur(invalidate_model, inputs=None, outputs=[stats_html])
 
     single_btn.click(
         run_single,
-        inputs=[image_in, single_model, device_dd, max_side_slider, normalize_cb, weights_tb],
+        inputs=[image_in, single_model, device_dd, max_side_slider, normalize_cb, weights_tb, precision_dd],
         outputs=[single_preview, single_result, single_download, single_status, stats_html],
     )
     single_clear_btn.click(
@@ -1670,7 +1685,7 @@ with gr.Blocks(
 
     batch_btn.click(
         run_batch,
-        inputs=[batch_files, batch_models, device_dd, max_side_slider, normalize_cb, weights_tb],
+        inputs=[batch_files, batch_models, device_dd, max_side_slider, normalize_cb, weights_tb, precision_dd],
         outputs=[batch_gallery, batch_download, batch_status, stats_html],
     )
     batch_clear_btn.click(
@@ -1681,7 +1696,7 @@ with gr.Blocks(
 
     video_btn.click(
         run_video,
-        inputs=[video_in, video_model, max_seconds_slider, device_dd, max_side_slider, normalize_cb, weights_tb],
+        inputs=[video_in, video_model, max_seconds_slider, device_dd, max_side_slider, normalize_cb, weights_tb, precision_dd],
         outputs=[video_out, video_download, video_status, stats_html],
     )
     video_clear_btn.click(
@@ -1692,7 +1707,7 @@ with gr.Blocks(
 
     webcam_in.stream(
         run_webcam,
-        inputs=[webcam_in, webcam_model, device_dd, max_side_slider, normalize_cb, weights_tb],
+        inputs=[webcam_in, webcam_model, device_dd, max_side_slider, normalize_cb, weights_tb, precision_dd],
         outputs=[webcam_out],
         stream_every=0.1,
         time_limit=600,
@@ -1702,7 +1717,7 @@ with gr.Blocks(
 
     cmp_btn.click(
         run_compare,
-        inputs=[cmp_image, cmp_models, device_dd, max_side_slider, normalize_cb, cmp_export_zip],
+        inputs=[cmp_image, cmp_models, device_dd, max_side_slider, normalize_cb, cmp_export_zip, precision_dd],
         outputs=[cmp_grid, cmp_metrics, cmp_zip, cmp_status],
     )
     cmp_clear_btn.click(

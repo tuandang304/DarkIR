@@ -64,16 +64,16 @@ def setup_precision(model: torch.nn.Module, precision: str, device: torch.device
         return model, nullcontext
     if device.type != "cuda":
         raise ValueError(f"{precision} cần GPU CUDA (đang chọn {device}).")
+    fp16 = lambda: torch.autocast("cuda", dtype=torch.float16)  # noqa: E731
     if precision == "fp16":
-        return model, lambda: torch.autocast("cuda", dtype=torch.float16)
+        return model, fp16
     import torch_tensorrt  # noqa: F401  registers the "torch_tensorrt" torch.compile backend
 
     # Engine is built on the first call and rebuilt for every new input size.
-    compiled = torch.compile(
-        model, backend="torch_tensorrt", dynamic=False,
-        options={"enabled_precisions": {torch.float16}},
-    )
-    return compiled, nullcontext
+    # FP16 comes from tracing under torch.autocast: Torch-TensorRT 2.14 ignores
+    # `enabled_precisions`, and its own autocast pass does not run via torch.compile.
+    compiled = torch.compile(model, backend="torch_tensorrt", dynamic=False)
+    return compiled, fp16
 
 
 def resolve_weights(weights: Optional[Union[str, os.PathLike]] = None) -> Path:
