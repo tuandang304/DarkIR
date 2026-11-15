@@ -1,0 +1,39 @@
+\begin{thebibliography}{1}
+
+\bibitem{wei2018retinexnet}
+Chen Wei, Wenjing Wang, Wenhan Yang, and Jiaying Liu.
+\newblock Deep retinex decomposition for low-light enhancement.
+\newblock In {\em British Machine Vision Conference (BMVC)}, 2018.
+
+\bibitem{guo2020zerodce}
+Chunle Guo, Chongyi Li, Jichang Guo, Chen~Change Loy, Junhui Hou, Sam Kwong,
+  and Runmin Cong.
+\newblock Zero-reference deep curve estimation for low-light image enhancement.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 1780--1789, 2020.
+
+\bibitem{kupyn2018deblurgan}
+Orest Kupyn, Volodymyr Budzan, Mykola Mykhailych, Dmytro Mishkin, and Jiri
+  Matas.
+\newblock Deblurgan: Blind motion deblurring using conditional adversarial
+  networks.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 8183--8192, 2018.
+
+\bibitem{chen2022nafnet}
+Liangyu Chen, Xiaojie Chu, Xiangyu Zhang, and Jian Sun.
+\newblock Simple baselines for image restoration.
+\newblock In {\em European Conference on Computer Vision (ECCV)}, 2022.
+
+\bibitem{zhou2022lednet}
+Shangchen Zhou, Chongyi Li, and Chen~Change Loy.
+\newblock Lednet: Joint low-light enhancement and deblurring in the dark.
+\newblock In {\em European Conference on Computer Vision (ECCV)}, 2022.
+
+\bibitem{feijoo2025darkir}
+Daniel Feijoo, Juan~C. Benito, Alvaro Garcia, and Marcos~V. Conde.
+\newblock Darkir: Robust low-light image restoration.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 10879--10889, 2025.
+
+\end{thebibliography}
