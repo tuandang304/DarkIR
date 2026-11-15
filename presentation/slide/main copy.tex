@@ -8,7 +8,8 @@
 \usepackage{booktabs}%
 \usepackage{fnpct}%
 \usepackage{tikz}%
-\usetikzlibrary{arrows.meta, positioning, decorations.pathreplacing}
+\usepackage{tabularx}
+\usetikzlibrary{arrows.meta, positioning, decorations.pathreplacing, calc}
 
 \setbeamerfont{footnote}{size=\tiny}
 
@@ -391,7 +392,7 @@ Challenges in Nighttime Photography}
             sep=0.10cm,
             wd=\linewidth
         ]{}
-            {\color{orange!85!black}\bfseries 03. Robustness & Efficiency}
+            {\color{orange!85!black}\bfseries 03. Robustness and Efficiency}
 
             \vspace{0.07cm}
 
@@ -423,50 +424,139 @@ Challenges in Nighttime Photography}
 \end{frame}
 
 
-% 04 - Dataset and exploratory data analysis
-\section{Data}
+% 04 - Related Work
+\section{Related Work}
 
-\begin{frame}
-    \frametitle{Dataset Overview}
-    \framesubtitle{Each sample = a (low-light, ground-truth) pair of RGB images}
+\begin{frame}{Existing Approaches}
+\small
+% ---------- 1. Literature Overview ----------
+{\color{Navy}\bfseries
+Representative Image Restoration Methods}
 
-    \begin{center}
-    \scriptsize
-    \begin{tabular}{llrrll}
-        \toprule
-        \textbf{Dataset} & \textbf{Degradation} & \textbf{Train} & \textbf{Test} & \textbf{Resolution} & \textbf{Source} \\
-        \midrule
-        LOL-Blur     & low light + blur + noise & 10{,}200 & 1{,}800 & 1120$\times$640 & LEDNet \\
-        LOLv2-real   & low light        & 689      & 100     & 600$\times$400 & LOLv2 \\
-        LOLv2-synth  & low light        & 900      & 100     & 384$\times$384 & LOLv2 \\
-        LSRW (Nikon / Huawei) & low light & 5{,}600 & 50   & varies & R2RNet \\
-        \midrule
-        Real-LOLBlur, DICM, LIME, MEF, NPE, VV & real night photos & \multicolumn{2}{c}{unpaired, test only} & varies & -- \\
-        \bottomrule
-    \end{tabular}
-    \end{center}
+\vspace{0.12cm}
 
-    \begin{columns}[t]
-        \begin{column}{0.5\textwidth}
-            \footnotesize
-            \textbf{Raw-data issues}
-            \begin{itemize}
-                \item No missing / corrupt files; every input has its GT (checked on LOLv2)
-                \item \textbf{Imbalance}: LOL-Blur is 57\% of all paired training data
-                \item Tiny test sets (LSRW 20--30 pairs) $\Rightarrow$ noisy scores
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \footnotesize
-            \textbf{Preprocessing}
-            \begin{itemize}
-                \item Train: random 384$\times$384 crops, flips and rotations
-                \item Pixels scaled to $[0, 1]$; pad to a multiple of 8 (3 down-sampling stages)
-                \item Deploy: optional resize (max side 1280\,px)
-            \end{itemize}
-        \end{column}
-    \end{columns}
+\renewcommand{\arraystretch}{1.5}
+
+\begin{tabularx}{\textwidth}{
+    >{\raggedright\arraybackslash}p{0.24\textwidth}
+    >{\raggedright\arraybackslash}p{0.38\textwidth}
+    >{\raggedright\arraybackslash}X
+}
+
+\toprule
+
+\textbf{\color{Navy}Approach} &
+\textbf{\color{Navy}Representative Methods} &
+\textbf{\color{Navy}Primary Objective} \\
+
+\midrule
+
+\textbf{Low-light Enhancement} & RetinexNet \cite{wei2018retinexnet}, Zero-DCE \cite{guo2020zerodce} & Illumination and contrast enhancement \\
+\textbf{Image Deblurring} & DeblurGAN \cite{kupyn2018deblurgan}, NAFNet \cite{chen2022nafnet} & Blur removal and detail restoration \\
+\textbf{Joint Restoration} & LEDNet \cite{zhou2022lednet}, DarkIR \cite{feijoo2025darkir} & Joint low-light enhancement and deblurring / multi-task restoration \\
+\bottomrule
+\end{tabularx}
+\vspace{0.3cm}
+\end{frame} 
+
+\begin{frame}{Existing Approaches}
+\small
+% ---------- 2. Limitation ----------
+{\color{Navy}\bfseries
+Limitation of Sequential Restoration}
+
+\vspace{0.22cm}
+
+\begin{center}
+
+\begin{tikzpicture}[
+    node distance=0.65cm,
+    process/.style={
+        draw=Navy!65,
+        fill=LightBlue!45,
+        rounded corners=3pt,
+        minimum width=2.55cm,
+        minimum height=0.72cm,
+        align=center,
+        font=\small\bfseries,
+        text=Navy
+    },
+    annotation/.style={
+        font=\scriptsize,
+        text=orange!85!black,
+        align=center
+    },
+    arrow/.style={
+        -{Stealth[length=2.2mm]},
+        thick,
+        draw=Navy!75
+    }
+]
+
+\node[process] (input)
+{Low-light Input};
+
+\node[process, right=of input] (enhance)
+{Enhancement};
+
+\node[process, right=of enhance] (deblur)
+{Deblurring};
+
+\node[process, right=of deblur] (output)
+{Restored Image};
+
+\draw[arrow] (input) -- (enhance);
+\draw[arrow] (enhance) -- (deblur);
+\draw[arrow] (deblur) -- (output);
+
+\node[annotation, below=0.13cm of enhance]
+{Noise amplification \cite{wei2018retinexnet}};
+
+\node[annotation, below=0.13cm of deblur]
+{Error propagation \cite{zhou2022lednet}};
+
+\end{tikzpicture}
+
+\end{center}
+
+\vspace{0.12cm}
+
+\begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \item Enhancement may amplify existing noise in low-light images.
+    \item Cascaded enhancement and deblurring may not effectively handle coupled visibility and sharpness degradation. \cite{zhou2022lednet}
+\end{itemize}
+
+\vspace{0.12cm}
+
+% ---------- 3. Research Motivation ----------
+
+\begin{beamercolorbox}[
+    rounded=true,
+    sep=0.08cm,
+    wd=\textwidth
+]{}
+
+\colorbox{LightBlue}{
+    \parbox{\dimexpr\textwidth-2\fboxsep\relax}{
+        {\color{Navy}\bfseries
+        Research Motivation}
+
+        \vspace{0.05cm}
+
+        \fontsize{9}{11}\selectfont
+
+        Joint restoration provides a unified approach
+        to addressing multiple image degradations,
+        motivating the investigation of robust
+        nighttime image restoration under challenging
+        imaging conditions \cite{zhou2022lednet,feijoo2025darkir}.
+    }
+}
+
+\end{beamercolorbox}
 \end{frame}
+
 
 \begin{frame}
     \frametitle{Key EDA Insights (1/2): How Dark Is the Data?}
@@ -780,36 +870,36 @@ Challenges in Nighttime Photography}
     \printbibliography
 \end{frame}
 % 11 - Backup slides
-\appendix
+% \appendix
 
-\begin{frame}
-    \frametitle{Backup: Dataset Scale}
-    \framesubtitle{Paired datasets, number of image pairs}
+% \begin{frame}
+%     \frametitle{Backup: Dataset Scale}
+%     \framesubtitle{Paired datasets, number of image pairs}
 
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{eda/dataset_sizes.png}
-    \end{center}
-    {\footnotesize
-    \begin{itemize}
-        \item LOL-Blur alone has more training pairs than all other paired sets combined.
-        \item Test sets are tiny for LOL (15) and LSRW (20--30): single-number scores there are noisy.
-    \end{itemize}
-    }
-\end{frame}
+%     \begin{center}
+%         \includegraphics[width=0.95\textwidth]{eda/dataset_sizes.png}
+%     \end{center}
+%     {\footnotesize
+%     \begin{itemize}
+%         \item LOL-Blur alone has more training pairs than all other paired sets combined.
+%         \item Test sets are tiny for LOL (15) and LSRW (20--30): single-number scores there are noisy.
+%     \end{itemize}
+%     }
+% \end{frame}
 
-\begin{frame}
-    \frametitle{Backup: LOLv2 Samples}
-    \framesubtitle{Low-light input (top) vs.\ normal-light ground truth (bottom), test split}
+% \begin{frame}
+%     \frametitle{Backup: LOLv2 Samples}
+%     \framesubtitle{Low-light input (top) vs.\ normal-light ground truth (bottom), test split}
 
-    \begin{center}
-        \includegraphics[width=\textwidth, height=0.6\textheight, keepaspectratio]{eda/samples.png}
-    \end{center}
-    {\footnotesize
-    \begin{itemize}
-        \item Real: 689 + 100 pairs, 600$\times$400. Synthetic: 900 + 100 pairs, 384$\times$384. All RGB, every low image has its ground truth.
-    \end{itemize}
-    }
-\end{frame}
+%     \begin{center}
+%         \includegraphics[width=\textwidth, height=0.6\textheight, keepaspectratio]{eda/samples.png}
+%     \end{center}
+%     {\footnotesize
+%     \begin{itemize}
+%         \item Real: 689 + 100 pairs, 600$\times$400. Synthetic: 900 + 100 pairs, 384$\times$384. All RGB, every low image has its ground truth.
+%     \end{itemize}
+%     }
+% \end{frame}
 % 12 - Closing slide
 \begin{frame}
     \begin{center}
