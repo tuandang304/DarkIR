@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.9.25)  15 NOV 2026 10:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.9.25)  15 NOV 2026 11:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1062,33 +1062,33 @@ Package pdftex.def Info: images/P.Zo-9862-scaled-1.jpg  used on input line 204.
 
 {/home/tuan/.texlive2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/sha
 re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} <./images/P.Zo-9862-scaled-1
-.jpg> <./images/fptu_logo.png>] [2
+.jpg> <./images/fptu_logo.png>] (./main.toc) (./main.toc) [2
 
 ]
-<images/1_statement/1_1.jpg, id=75, 4914.36pt x 3276.24pt>
+<images/1_statement/1_1.jpg, id=89, 4914.36pt x 3276.24pt>
 File: images/1_statement/1_1.jpg Graphic file (type jpg)
 <use images/1_statement/1_1.jpg>
-Package pdftex.def Info: images/1_statement/1_1.jpg  used on input line 318.
+Package pdftex.def Info: images/1_statement/1_1.jpg  used on input line 332.
 (pdftex.def)             Requested size: 61.86427pt x 41.24284pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 318.
-<images/1_statement/1_2.jpg, id=76, 903.375pt x 575.14874pt>
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 332.
+<images/1_statement/1_2.jpg, id=90, 903.375pt x 575.14874pt>
 File: images/1_statement/1_2.jpg Graphic file (type jpg)
 <use images/1_statement/1_2.jpg>
-Package pdftex.def Info: images/1_statement/1_2.jpg  used on input line 318.
+Package pdftex.def Info: images/1_statement/1_2.jpg  used on input line 332.
 (pdftex.def)             Requested size: 64.80034pt x 41.25621pt.
-<images/1_statement/1_3.jpg, id=77, 2055.68pt x 1370.11874pt>
+<images/1_statement/1_3.jpg, id=91, 2055.68pt x 1370.11874pt>
 File: images/1_statement/1_3.jpg Graphic file (type jpg)
 <use images/1_statement/1_3.jpg>
-Package pdftex.def Info: images/1_statement/1_3.jpg  used on input line 318.
+Package pdftex.def Info: images/1_statement/1_3.jpg  used on input line 332.
 (pdftex.def)             Requested size: 61.8873pt x 41.24812pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 318.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 332.
  [3
 
  <./images/1_statement/1_1.jpg> <./images/1_statement/1_2.jpg> <./images/1_stat
 ement/1_3.jpg>]
-Overfull \hbox (8.97397pt too wide) in paragraph at lines 420--420
+Overfull \hbox (8.97397pt too wide) in paragraph at lines 434--434
  [][][][][][][]  
  []
 
@@ -1096,175 +1096,213 @@ Overfull \hbox (8.97397pt too wide) in paragraph at lines 420--420
 
 ] [5
 
-] [6
+]
+Overfull \hbox (10.1123pt too wide) in paragraph at lines 564--564
+ [][][][][][][]  
+ []
+
+[6
 
 ]
-Overfull \hbox (10.1123pt too wide) in paragraph at lines 586--586
+Overfull \hbox (10.1123pt too wide) in paragraph at lines 744--744
  [][][][][][][]  
  []
 
 [7
 
-] [8
-
 ]
-<images/pipeline/data_pipeline.pdf, id=166, 873.2625pt x 354.36388pt>
-File: images/pipeline/data_pipeline.pdf Graphic file (type pdf)
-<use images/pipeline/data_pipeline.pdf>
-Package pdftex.def Info: images/pipeline/data_pipeline.pdf  used on input line 
-640.
-(pdftex.def)             Requested size: 433.34402pt x 175.84592pt.
+<images/networks-scheme.png, id=169, 1330.9725pt x 515.9275pt>
+File: images/networks-scheme.png Graphic file (type png)
+<use images/networks-scheme.png>
+Package pdftex.def Info: images/networks-scheme.png  used on input line 826.
+(pdftex.def)             Requested size: 310.97108pt x 120.54233pt.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 826.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <8.5> not available
+(Font)              size <8> substituted on input line 826.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
+(Font)              size <8> substituted on input line 826.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
+(Font)              size <5> substituted on input line 826.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
+(Font)              size <8> substituted on input line 826.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
+(Font)              size <5> substituted on input line 826.
+
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8.5> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 826.
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <5.94997> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 826.
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <4.25> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 826.
+
+Overfull \hbox (10.07178pt too wide) in paragraph at lines 826--826
+ [][][][][][][]  
+ []
+
+[8
+
+ <./images/networks-scheme.png>]
+<images/mag_freq.png, id=177, 854.2314pt x 400.3758pt>
+File: images/mag_freq.png Graphic file (type png)
+<use images/mag_freq.png>
+Package pdftex.def Info: images/mag_freq.png  used on input line 976.
+(pdftex.def)             Requested size: 208.00327pt x 97.49117pt.
  [9
 
- <./images/pipeline/data_pipeline.pdf>]
-<images/eda/brightness.png, id=220, 793.88596pt x 260.172pt>
-File: images/eda/brightness.png Graphic file (type png)
-<use images/eda/brightness.png>
-Package pdftex.def Info: images/eda/brightness.png  used on input line 660.
-(pdftex.def)             Requested size: 382.55092pt x 125.36942pt.
- [10
-
- <./images/eda/brightness.png>]
-<images/eda/gain_scatter.png, id=228, 390.9807pt x 317.988pt>
-File: images/eda/gain_scatter.png Graphic file (type png)
-<use images/eda/gain_scatter.png>
-Package pdftex.def Info: images/eda/gain_scatter.png  used on input line 679.
-(pdftex.def)             Requested size: 216.67201pt x 176.2234pt.
- [11
-
- <./images/eda/gain_scatter.png>] [12
-
-]
-<../../assets/networks-scheme.png, id=244, 1330.9725pt x 515.9275pt>
-File: ../../assets/networks-scheme.png Graphic file (type png)
-<use ../../assets/networks-scheme.png>
-Package pdftex.def Info: ../../assets/networks-scheme.png  used on input line 7
-57.
-(pdftex.def)             Requested size: 211.45708pt x 81.97034pt.
- [13
-
- <../../assets/networks-scheme.png>]
-<images/method/mag_freq.png, id=255, 509.14215pt x 183.20445pt>
-File: images/method/mag_freq.png Graphic file (type png)
-<use images/method/mag_freq.png>
-Package pdftex.def Info: images/method/mag_freq.png  used on input line 810.
-(pdftex.def)             Requested size: 216.67201pt x 77.96289pt.
- [14
-
- <./images/method/mag_freq.png>]
-LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 8
-59.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ppl.fd
-File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
-) [15
+ <./images/mag_freq.png>] [10
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <14.4> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 927.
-LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 927.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1392.
+
+LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 1392.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <7.5> not available
-(Font)              size <7> substituted on input line 927.
+(Font)              size <7> substituted on input line 1392.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <7.5> not available
-(Font)              size <7> substituted on input line 927.
+(Font)              size <7> substituted on input line 1392.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.75> not available
-(Font)              size <5> substituted on input line 927.
+(Font)              size <5> substituted on input line 1392.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <7.5> not available
-(Font)              size <7> substituted on input line 927.
+(Font)              size <7> substituted on input line 1392.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.75> not available
-(Font)              size <5> substituted on input line 927.
+(Font)              size <5> substituted on input line 1392.
 
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <7.5> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 927.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1392.
+
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <5.24997> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 927.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1392.
+
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <3.75> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 927.
-[16
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1392.
+
+[11
 
 ]
-<images/results/training_curves.jpg, id=281, 1595.9625pt x 391.4625pt>
-File: images/results/training_curves.jpg Graphic file (type jpg)
-<use images/results/training_curves.jpg>
-Package pdftex.def Info: images/results/training_curves.jpg  used on input line
- 944.
-(pdftex.def)             Requested size: 433.34402pt x 106.28763pt.
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1437.
+
+ [12
+
+]
+<images/pipeline/data_pipeline.pdf, id=213, 873.2625pt x 354.36388pt>
+File: images/pipeline/data_pipeline.pdf Graphic file (type pdf)
+<use images/pipeline/data_pipeline.pdf>
+Package pdftex.def Info: images/pipeline/data_pipeline.pdf  used on input line 
+1445.
+(pdftex.def)             Requested size: 433.34402pt x 175.84592pt.
+ [13
+
+ <./images/pipeline/data_pipeline.pdf>]
+<images/eda/brightness.png, id=267, 793.88596pt x 260.172pt>
+File: images/eda/brightness.png Graphic file (type png)
+<use images/eda/brightness.png>
+Package pdftex.def Info: images/eda/brightness.png  used on input line 1465.
+(pdftex.def)             Requested size: 382.55092pt x 125.36942pt.
+ [14
+
+ <./images/eda/brightness.png>]
+<images/eda/gain_scatter.png, id=275, 390.9807pt x 317.988pt>
+File: images/eda/gain_scatter.png Graphic file (type png)
+<use images/eda/gain_scatter.png>
+Package pdftex.def Info: images/eda/gain_scatter.png  used on input line 1484.
+(pdftex.def)             Requested size: 216.67201pt x 176.2234pt.
+ [15
+
+ <./images/eda/gain_scatter.png>]
+<images/results/sim_training_curves.png, id=283, 1069.23465pt x 274.626pt>
+File: images/results/sim_training_curves.png Graphic file (type png)
+<use images/results/sim_training_curves.png>
+Package pdftex.def Info: images/results/sim_training_curves.png  used on input 
+line 1502.
+(pdftex.def)             Requested size: 433.34402pt x 111.30254pt.
+ [16
+
+ <./images/results/sim_training_curves.png>]
+<images/results/sim_training_details.png, id=290, 1064.89845pt x 274.626pt>
+File: images/results/sim_training_details.png Graphic file (type png)
+<use images/results/sim_training_details.png>
+Package pdftex.def Info: images/results/sim_training_details.png  used on input
+ line 1517.
+(pdftex.def)             Requested size: 433.34402pt x 111.7551pt.
  [17
 
- <./images/results/training_curves.jpg>]
-<images/results/qualitative_grid.jpg, id=288, 2627.8175pt x 706.64pt>
+ <./images/results/sim_training_details.png>]
+<images/results/qualitative_grid.jpg, id=298, 2627.8175pt x 706.64pt>
 File: images/results/qualitative_grid.jpg Graphic file (type jpg)
 <use images/results/qualitative_grid.jpg>
 Package pdftex.def Info: images/results/qualitative_grid.jpg  used on input lin
-e 958.
+e 1531.
 (pdftex.def)             Requested size: 433.34402pt x 116.52586pt.
  [18
 
  <./images/results/qualitative_grid.jpg>] [19
 
 ]
-<images/results/error_maps.png, id=302, 1070.3187pt x 334.24875pt>
+<images/results/error_maps.png, id=312, 1070.3187pt x 334.24875pt>
 File: images/results/error_maps.png Graphic file (type png)
 <use images/results/error_maps.png>
-Package pdftex.def Info: images/results/error_maps.png  used on input line 1003
+Package pdftex.def Info: images/results/error_maps.png  used on input line 1576
 .
 (pdftex.def)             Requested size: 355.1334pt x 110.90425pt.
  [20
 
  <./images/results/error_maps.png>]
-<images/results/ablation.png, id=310, 856.76085pt x 289.08pt>
+<images/results/ablation.png, id=320, 856.76085pt x 289.08pt>
 File: images/results/ablation.png Graphic file (type png)
 <use images/results/ablation.png>
-Package pdftex.def Info: images/results/ablation.png  used on input line 1018.
+Package pdftex.def Info: images/results/ablation.png  used on input line 1591.
 (pdftex.def)             Requested size: 335.82181pt x 113.30975pt.
- [21
+
+[21
 
  <./images/results/ablation.png>]
-<images/results/amplitude_swap.png, id=318, 1070.3187pt x 212.4738pt>
+<images/results/amplitude_swap.png, id=328, 1070.3187pt x 212.4738pt>
 File: images/results/amplitude_swap.png Graphic file (type png)
 <use images/results/amplitude_swap.png>
 Package pdftex.def Info: images/results/amplitude_swap.png  used on input line 
-1040.
+1613.
 (pdftex.def)             Requested size: 433.32971pt x 86.02223pt.
  [22
 
  <./images/results/amplitude_swap.png>]
-<images/demo/ui.png, id=326, 1606.0pt x 1003.75pt>
+<images/demo/ui.png, id=336, 1606.0pt x 1003.75pt>
 File: images/demo/ui.png Graphic file (type png)
 <use images/demo/ui.png>
-Package pdftex.def Info: images/demo/ui.png  used on input line 1063.
+Package pdftex.def Info: images/demo/ui.png  used on input line 1636.
 (pdftex.def)             Requested size: 268.67117pt x 167.909pt.
- [23
+[23
 
- <./images/demo/ui.png (PNG copy)>]
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <17.28> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1101.
+ <./images/demo/ui.png (PNG copy)>] [24
 
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 1101.
-
- [24
-
-] [25
-
-] (./main.bbl) [26
+] (./main.bbl) [25
 
 ]
 File: images/fptu_logo.png Graphic file (type png)
 <use images/fptu_logo.png>
-Package pdftex.def Info: images/fptu_logo.png  used on input line 1181.
+Package pdftex.def Info: images/fptu_logo.png  used on input line 1717.
 (pdftex.def)             Requested size: 109.4712pt x 42.67912pt.
- [27
+ [26
 
 ]
 \tf@nav=\write6
@@ -1282,21 +1320,20 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 
-
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.25pt have occurred.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 63C76DA58B520BD0C22E0FA908271369;614.
+(rerunfilecheck)             Checksum: AEB3014A58EE15112179338D94D08126;702.
  ) 
 Here is how much of TeX's memory you used:
- 28364 strings out of 468994
- 583590 string characters out of 5459060
- 943540 words of memory out of 5000000
- 56521 multiletter control sequences out of 15000+600000
- 703514 words of font info for 183 fonts, out of 8000000 for 9000
+ 28212 strings out of 468994
+ 581276 string characters out of 5459060
+ 949002 words of memory out of 5000000
+ 56370 multiletter control sequences out of 15000+600000
+ 700967 words of font info for 171 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
- 101i,17n,107p,379b,987s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,17n,107p,379b,988s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/t
@@ -1312,12 +1349,11 @@ m/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/palatino/uplr8a.pfb>
-Output written on main.pdf (27 pages, 11842300 bytes).
+nts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on main.pdf (26 pages, 11609904 bytes).
 PDF statistics:
- 452 PDF objects out of 1000 (max. 8388607)
- 304 compressed objects within 4 object streams
- 69 named destinations out of 1000 (max. 500000)
- 265 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 450 PDF objects out of 1000 (max. 8388607)
+ 302 compressed objects within 4 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 270 words of extra memory for PDF output out of 10000 (max. 10000000)
 
