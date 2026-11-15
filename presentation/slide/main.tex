@@ -1,56 +1,72 @@
 \documentclass[
-    11pt, % Set the default font size, options include: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt
-    aspectratio=169, % Set the aspect ratio to a 16:9 ratio which matches the aspect ratio of 1080p and 4K screens and projectors
+    11pt,%
+    aspectratio=169,%
 ]{beamer}
 
-% This template is inspired by the VT Presentation Template, as well as the THU Beamer Theme. Many thanks!
-
-\graphicspath{{images/}{./}} % Specifies where to look for included images (trailing slash required)
-\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule for better rules in tables
-% \usepackage{appendixnumberbeamer} % If you want a separate slide counter for your appendix
-\usepackage{fnpct} % Eliminate the unwanted space before the footnote mark
-\usepackage{tikz} % Washed-out title background, pipeline diagram
-\usetikzlibrary{arrows.meta, positioning, decorations.pathreplacing}
+% Preamble: packages and global settings
+\graphicspath{{images/}{./}}%
+\usepackage{booktabs}%
+\usepackage{fnpct}%
+\usepackage{tikz}%
+\usepackage{tabularx}
+\usetikzlibrary{arrows.meta, positioning, decorations.pathreplacing, calc}
 
 \setbeamerfont{footnote}{size=\tiny}
 
-%---------------------------------------------------------
-%	SELECT THEME & COLORS
-%---------------------------------------------------------
-\usetheme{Madrid} % You can use other themes too, but this changes many things. I've found Madrid to be the best for this color scheme
+% Theme and colors
+\usetheme{Madrid}%
 
-% fg = foreground color
-% bg = background color
 
-% Many colors are linked to multiple attributes, change with caution!
-\definecolor{fptBlue}{RGB}{0, 75, 145} % FPT blue (darkened for contrast)
-\definecolor{fptOrange}{RGB}{243, 112, 33} % FPT orange
+\definecolor{fptBlue}{RGB}{0, 75, 145}%
+\definecolor{fptOrange}{RGB}{243, 112, 33}%
+
+% Extra colours used on the motivation slide
+\definecolor{Navy}{HTML}{0B2545}%
+\definecolor{LightBlue}{HTML}{E7F0FA}%
+\definecolor{CardFrame}{HTML}{B9C6D6}%
+\definecolor{GrayText}{HTML}{4A5568}%
+
+% Card with picture + title + short description (motivation slide)
+% #1 = image file, #2 = short title, #3 = description
+
+\newcommand{\problemcard}[3]{%
+    \begin{minipage}[t]{0.305\textwidth}
+        \centering
+
+        \includegraphics[
+            width=\linewidth,
+            height=1.45cm,
+            keepaspectratio
+        ]{#1}
+
+        \vspace{0.05cm}
+
+        {\color{Navy}
+         \fontsize{10}{12}\selectfont
+         \bfseries #2\par}
+
+        \vspace{0.02cm}
+
+        {\color{GrayText}
+         \fontsize{8}{10}\selectfont
+         \parbox{0.98\linewidth}{
+             \centering #3
+         }}
+    \end{minipage}%
+}
+
 
 \setbeamercolor*{structure}{bg=fptBlue, fg=fptBlue}
-% Title block and bottom right box color
-\setbeamercolor*{palette primary}{use=structure, fg=white,bg=fptBlue} % Bottom left box and bar between title & top bubbles
+\setbeamercolor*{palette primary}{use=structure, fg=white,bg=fptBlue}%
 \setbeamercolor*{palette secondary}{use=structure, fg=fptBlue, bg=white}
-% Probably not used
 \setbeamercolor*{palette tertiary}{use=structure, fg=white, bg=fptBlue} 
 
-% Title of each slide
 \setbeamercolor{frametitle}{bg=fptBlue, fg=white}
 \setbeamercolor*{titlelike}{parent=palette primary}
 
-%%% Headline and Central Footer %%%
-% You can change the theme back and forth for each frame
-% Theme I - white head, white foot
-    % \setbeamercolor{section in head/foot}{fg=fptOrange, bg=white}
-    % \setbeamercolor{headline}{fg=fptOrange, bg=white}
-% Theme II - gold head, gold foot (as shown in the title frame)
     \setbeamercolor{section in head/foot}{fg=white, bg=fptOrange}
     \setbeamercolor{headline}{fg=white, bg=fptOrange}
-% Theme III - white head, gold foot (as shown in the rest of the frames)
-    % \setbeamercolor{section in head/foot}{fg=fptOrange, bg=white}
-    % \setbeamercolor{title in head/foot}{fg=white, bg=fptOrange}
-    % \setbeamercolor{headline}{fg=fptOrange, bg=white}
 
-%%% Specific Colors %%%
 \setbeamercolor{item projected}{bg=fptOrange}
 \setbeamertemplate{enumerate items}{bg=fptOrange}
 
@@ -59,47 +75,32 @@
 
 \setbeamercolor{button}{bg=fptOrange}
 
-%%% Edits ONLY the TOC slide %%%
 \setbeamercolor{section in toc}{fg=black}
 \setbeamercolor{subsection in toc}{fg=black}
 
-%%% Block Colors %%%
-% Standard block
     \setbeamercolor{block title}{bg=fptOrange, fg=white}
     \setbeamercolor{block body}{bg=fptOrange!20}
-% Alerted block
     \setbeamercolor{block title alerted}{bg=orange, fg=white}
     \setbeamercolor{block body alerted}{bg=orange!10}
-% Example block
     \setbeamercolor{block title example}{bg=fptBlue, fg=white}
     \setbeamercolor{block body example}{bg=fptBlue!10}
 
-%---------------------------------------------------------
-%	SELECT THE FONT THEME & FONTS
-%---------------------------------------------------------
-\usefonttheme{default} % Typeset using the default sans serif font
-\usepackage{palatino} % Use the Palatino font for serif text
-\IfFileExists{opensans.sty}{\usepackage[default]{opensans}}{} % Open Sans for sans serif text, if installed
+
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{enumitem}
+
+% Bibliography: plain BibTeX (biblatex/biber are not on every TeX install); cite order = unsrt
+
+% Typography and slide navigation
+\usefonttheme{default}%
+\usepackage{palatino}%
+\IfFileExists{opensans.sty}{\usepackage[default]{opensans}}{}%
 \useinnertheme{circles}
 
-%---------------------------------------------------------
-%	SELECT THE OUTER THEME
-%---------------------------------------------------------
-% Outer themes change the overall layout of slides, such as header and footer lines, sidebars and slide titles. Uncomment each theme in turns to see what changes it makes to your presentation.
-
-% \useoutertheme{default}
 \useoutertheme{miniframes}
-% \useoutertheme{infolines}
-% \useoutertheme{smoothbars}
-% \useoutertheme{sidebar}
-% \useoutertheme{split}
-% \useoutertheme{shadow}
-% \useoutertheme{tree}
-% \useoutertheme{smoothtree}
 
-%---------------------------------------------------------
-%	PRESENTATION INFORMATION
-%---------------------------------------------------------
+% Presentation information
 \title[NightClear]{NightClear: Joint Low-Light Image Enhancement and Deblurring}
 \subtitle{A Unified Deep Learning Framework for Robust Nighttime Image Restoration}
 \author[Duc, Truong, Tuan]{\texorpdfstring{%
@@ -112,36 +113,36 @@
 \institute[FPTU]{Supervisor: Mr. Nguyen Trong Tai \quad$\cdot$\quad FPT University}
 \date[15/11/2026]{November 15, 2026}
 
-% School logo: shown at the top-right of the headline; \logo{} hides it for a frame
 \newcommand{\fptlogo}{\includegraphics[height=0.62cm]{fptu_logo.png}}
 \logo{\fptlogo}
 
 
-%---------------------------------------------------------
-%	EXTRA SETTINGS
-%---------------------------------------------------------
-
-% Clear warnings related to \translate
-%     https://github.com/josephwright/beamer/issues/449
+% Header and footer
 \pdfstringdefDisableCommands{
     \def\translate#1{#1}
 }
 
-% Simple header: logo on the left, current section name on the right (plain text, no links)
-% Section name in the header: larger and bold so it reads on a projector
 \setbeamerfont{section in head/foot}{size=\small, series=\bfseries}
-\setbeamertemplate{headline}{%
-    \nointerlineskip
-    \begin{beamercolorbox}[wd=\paperwidth,ht=1cm,dp=0pt]{headline}%
-        % both boxes are vertically centred in the 1cm header so the logo never touches the title bar
-        \raisebox{0.5cm}{\parbox[c]{0.5\paperwidth}{\hspace*{2mm}\insertlogo}}%
-        \hfill\raisebox{0.5cm}{\parbox[c]{0.48\paperwidth}{\raggedleft\usebeamerfont{section in head/foot}\insertsectionhead\hspace*{4mm}}}%
-    \end{beamercolorbox}%
-}
-% Logo lives in the headline, not the bottom-right corner
-\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{headline}{}
 
-% Footer: two equal halves, plain text (no author box, no links)
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,
+      ht=0.65cm,
+      dp=0.22cm,
+      leftskip=0.5cm,
+      rightskip=0.5cm
+  ]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle
+    \hfill
+    \ifnum\insertsectionnumber>1
+      {\fontsize{9}{9}\selectfont\bfseries\color{white}%
+       \the\numexpr\insertsectionnumber-1\relax.\enspace\insertsectionhead}%
+    \fi
+  \end{beamercolorbox}%
+}
 \setbeamertemplate{footline}{%
     \leavevmode%
     \hbox{%
@@ -154,31 +155,22 @@
     \vskip0pt%
 }
 
-% Disable navigation symbols
 \setbeamertemplate{navigation symbols}{}
 
-%---------------------------------------------------------
-%   DOCUMENT BEGINS
-%---------------------------------------------------------
+% Slide content
 \begin{document}
 
-% ===================== 01-title.tex =====================
-%---------------------------------------------------------
-%	TITLE SLIDE
-%---------------------------------------------------------
+% 01 - Title
 \section{}
 
-% Set background
 \usebackgroundtemplate{%
     \begin{tikzpicture}
-        \clip (0,0) rectangle (\paperwidth,\paperheight); % crop the 3:2 photo to 16:9 without stretching
+        \clip (0,0) rectangle (\paperwidth,\paperheight);%
         \node[inner sep=0, opacity=0.25] at ({0.5\paperwidth},{0.5\paperheight}) {\includegraphics[width=\paperwidth]{P.Zo-9862-scaled-1.jpg}};
     \end{tikzpicture}%
 }
-% Disable logo
 \logo{}
 
-% Custom title layout (plain = no header/footer): centred logo, title box, team | supervisor, date
 \begin{frame}[plain]
     \begin{center}
         \includegraphics[height=1.4cm]{fptu_logo.png}\\[4mm]
@@ -187,8 +179,6 @@
             {\usebeamerfont{subtitle}\insertsubtitle}
         \end{beamercolorbox}
         \vspace{5mm}
-        % fully centred: three students side by side, supervisor below
-        % {\footnotesize\bfseries\color{fptOrange} STUDENTS}\\[0.5mm]
         {\small
         \begin{tabular}{c@{\hspace{10mm}}c@{\hspace{10mm}}c}
             Mai Xuan Duc & Phan Minh Nhat Truong & Dang Thanh Tuan \\
@@ -201,110 +191,390 @@
     \end{center}
 \end{frame}
 
-% Clear background
 \usebackgroundtemplate{}
-% Enable logo
-\logo{\fptlogo}
+\logo{}
 
-% Switch to Theme III
-\setbeamercolor{section in head/foot}{fg=fptOrange, bg=white}
+% (headline removed – section shown in frametitle bar)
 \setbeamercolor{title in head/foot}{fg=white, bg=fptOrange}
-\setbeamercolor{headline}{fg=fptOrange, bg=white}
-% ===================== 02-contents.tex =====================
-%---------------------------------------------------------
-%	TABLE OF CONTENTS SLIDE
-%	Two balanced columns, 3 sections each. Section 1 is the empty title-slide section.
-%---------------------------------------------------------
-{% local: more air between entries, only on this slide
-\addtobeamertemplate{section in toc}{\vspace{5mm}}{}
+% (headline template is empty)
+
+
+% ==========================================
+% 02 - TABLE OF CONTENTS
+% ==========================================
+% Agenda drawn by hand (not \tableofcontents): keep it in sync with the \section list below.
 \begin{frame}
     \frametitle{Table of Contents}
+
     \vfill
     \centering
-    \begin{minipage}[t]{0.3\textwidth}
-        \Large
-        \tableofcontents[sections={2-4}]
-    \end{minipage}%
-    \hspace{0.08\textwidth}%
-    \begin{minipage}[t]{0.3\textwidth}
-        \Large
-        \tableofcontents[sections={5-7}]
-    \end{minipage}
+    \begin{tikzpicture}[x=1.75cm,
+        tocstep/.style={circle, fill=fptOrange, text=white, draw=white, line width=1.5pt,
+                        minimum size=10mm, inner sep=0pt, font=\large\bfseries},
+        toccard/.style={rounded corners=5pt, fill=fptBlue!6, draw=fptBlue!25, line width=0.8pt,
+                        text width=3.0cm, minimum height=1.45cm, align=center, inner sep=4pt, font=\scriptsize\color{GrayText}}]
+        \draw[line width=3pt, fptBlue!30, line cap=round] (-0.35,0) -- (6.35,0);
+        % odd steps above the line, even steps below
+        \foreach \i/\t/\d in {
+            1/Introduction/{Problem \& objectives},
+            2/Related Work/{Existing approaches},
+            3/Data/{Datasets, pipeline, EDA},
+            4/Method/{Pipeline \& architecture},
+            5/Results/{Experiments \& analysis},
+            6/Demo/{Web app \& impact},
+            7/Conclusion/{Limits \& future work}}{
+            \pgfmathsetmacro{\s}{ifthenelse(mod(\i,2)==1, 1, -1)}
+            \draw[fptBlue!40, line width=1pt] (\i-1,0) -- (\i-1,{\s*0.8});
+            \node[toccard] at (\i-1,{\s*1.52})
+                {{\normalsize\bfseries\color{fptBlue}\t}\\[1mm]\d};
+            \node[tocstep] at (\i-1,0) {\i};
+        }
+    \end{tikzpicture}
     \vfill
 \end{frame}
-}
-% ===================== 03-problem.tex =====================
-%---------------------------------------------------------
-%	2. PROBLEM STATEMENT & OBJECTIVES
-%---------------------------------------------------------
-\section{Introduction & Motivation}
 
-\begin{frame}
-    \frametitle{Problem Statement}
-    \framesubtitle{Night photography degrades images in three ways at once}
 
-    \begin{columns}[c]
-        \begin{column}{0.52\textwidth}
-            \small
-            \begin{itemize}
-                \item \textbf{Low light}: dark, low-contrast images
-                \item \textbf{Noise}: shot / read noise of the sensor
-                \item \textbf{Motion blur}: hand shake during the exposure
-            \end{itemize}
-            Image formation model:
-            \[
-                y = \gamma\big(x \otimes k\big) + n
-            \]
-            {\footnotesize $y$: captured image, $x$: clean scene, $k$: blur kernel, $n$: noise, $\gamma$: dynamic-range loss}
+% ==========================================
+% 03 - INTRODUCTION AND MOTIVATION
+% ==========================================
+\section{Introduction}
 
-            \textbf{Goal:} recover $x$ from a single $y$ --- brighten, denoise \emph{and} deblur in one model.
-        \end{column}
-        \begin{column}{0.46\textwidth}
-            \centering
-            \includegraphics[height=0.31\textheight]{../../assets/teaser/0085_low.png}\\[-0.5mm]
-            {\scriptsize Input: low light + blur + noise}\\[1.5mm]
-            \includegraphics[height=0.31\textheight]{../../assets/teaser/0085_darkir.png}\\[-0.5mm]
-            {\scriptsize NightClear output}
-        \end{column}
+\begin{frame}{Problem Statement}
+
+% ---------- 1. Challenges ----------
+{\color{Navy}\bfseries
+\fontsize{11}{13}\selectfont
+Challenges in Nighttime Photography}
+
+\vspace{0.10cm}
+
+\begin{center}
+    \problemcard
+        {images/1_statement/1_1.jpg}
+        {Low Illumination}
+        {Insufficient light causes poor visibility
+        and loss of image details.}
+    \hfill
+    \problemcard
+        {images/1_statement/1_2.jpg}
+        {Sensor Noise}
+        {Low exposure increases the impact
+        of sensor noise.}
+    \hfill
+    \problemcard
+        {images/1_statement/1_3.jpg}
+        {Motion Blur}
+        {Camera or object motion during
+        exposure causes spatial blur.}
+\end{center}
+
+\vspace{0.12cm}
+
+% ---------- 2. Image Formation Model ----------
+\begin{block}{Image Formation Model}
+\vspace{0.05cm}
+\begin{columns}[c,onlytextwidth]
+    % Left: equation, centered vertically
+    \column{0.28\textwidth}
+    \centering
+    $\boxed{y = \gamma(x * k) + n}$
+
+    % Right: 2-column legend
+    \column{0.72\textwidth}
+    \begin{columns}[t,onlytextwidth]
+        \column{0.48\textwidth}
+        \begin{itemize}[leftmargin=*]
+            \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+            \item[$x$] {\small Latent sharp image.}
+            \item[$k$] {\small Blur kernel (PSF).}
+            \item[$*$] {\small Convolution.}
+        \end{itemize}
+        \column{0.52\textwidth}
+        \begin{itemize}[leftmargin=*]
+            \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+            \item[$\gamma$] {\small Camera response.}
+            \item[$n$]      {\small Sensor noise.}
+            \item[$y$]      {\small Degraded image.}
+        \end{itemize}
     \end{columns}
+\end{columns}
+\vspace{0.05cm}
+\end{block}
+
+\vspace{0.06cm}
+
 \end{frame}
+
+
+\begin{frame}{Project Objectives}
+\small
+
+% ---------- 1. Research Motivation ----------
+\begin{beamercolorbox}[
+    rounded=true,
+    sep=0.06cm,
+    wd=\textwidth
+]{}
+    \colorbox{LightBlue}{
+        \parbox{\dimexpr\textwidth-2\fboxsep\relax}{
+            {\color{Navy}\bfseries
+            Research Motivation}
+
+            \vspace{0.03cm}
+
+            \fontsize{9}{11}\selectfont
+            Low-light enhancement, denoising, and deblurring are
+            coupled tasks; sequential processing can propagate errors,
+            especially with low-quality cameras.
+        }
+    }
+\end{beamercolorbox}
+
+\vspace{0.18cm}
+
+% ---------- 2. Research Objectives ----------
+{\color{Navy}\bfseries Research Objectives}
+\vspace{0.07cm}
+\begin{columns}[T, onlytextwidth]
+    % Objective 1
+    \begin{column}{0.32\textwidth}
+        \begin{beamercolorbox}[
+            rounded=true,
+            sep=0.10cm,
+            wd=\linewidth
+        ]{}
+            {\color{orange!85!black}\bfseries 01. Low-light Enhancement}
+
+            \vspace{0.07cm}
+
+            \fontsize{8.5}{10}\selectfont
+            Improve brightness, visibility, and natural color at night.
+        \end{beamercolorbox}
+    \end{column}
+
+    % Objective 2
+    \begin{column}{0.32\textwidth}
+        \begin{beamercolorbox}[
+            rounded=true,
+            sep=0.10cm,
+            wd=\linewidth
+        ]{}
+            {\color{orange!85!black}\bfseries 02. Quality Restoration}
+
+            \vspace{0.07cm}
+
+            \fontsize{8.5}{10}\selectfont
+            Reduce noise and motion blur while preserving structures
+            and fine detail.
+        \end{beamercolorbox}
+    \end{column}
+
+    % Objective 3
+    \begin{column}{0.32\textwidth}
+        \begin{beamercolorbox}[
+            rounded=true,
+            sep=0.10cm,
+            wd=\linewidth
+        ]{}
+            {\color{orange!85!black}\bfseries 03. Robustness and Efficiency}
+
+            \vspace{0.07cm}
+
+            \fontsize{8.5}{10}\selectfont
+            Assess quality, speed, and robustness across camera inputs.
+        \end{beamercolorbox}
+    \end{column}
+
+\end{columns}
+
+\vspace{0.18cm}
+
+% ---------- 3. Research Scope ----------
+{\color{Navy}\bfseries Research Scope}
+
+\vspace{0.05cm}
+
+\begin{itemize}
+    \setlength{\itemsep}{1pt}
+    \setlength{\parskip}{0pt}
+
+    \item \textbf{Reproduce:} Implement the core method and establish baselines.
+
+    \item \textbf{Adapt:} Test on low-resolution, noisy images from low-quality cameras.
+
+    \item \textbf{Extend:} Explore evidence-based gains in robustness and efficiency.
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Why Data Science? Objectives \& KPIs}
 
     \begin{columns}[t]
-        \begin{column}{0.47\textwidth}
+        \begin{column}{0.44\textwidth}
             \small
-            \textbf{Why a data-driven model}
+            \textbf{\color{Navy}Why a data-driven model}
             \begin{itemize}
-                \item The needed brightening is image-dependent: \textbf{$\times$2.8 to $\times$30} across LOLv2-real pairs (our EDA) --- no fixed curve fits all.
-                \item Chaining two specialised models fails: \textbf{14.7--18.3\,dB} vs.\ \textbf{27.0\,dB} for one joint model.
-                \item 10k+ paired examples (LOL-Blur) let a network learn the inverse mapping directly.
+                \setlength{\itemsep}{3pt}
+                \item The right amount of brightening differs from photo to photo, so no single hand-made curve fits every scene.
+                \item Chaining separate brightening and deblurring models passes errors down the chain; one jointly trained model avoids this.
+                \item Large paired datasets let a network learn the inverse of the night-time degradation directly from examples.
             \end{itemize}
         \end{column}
-        \begin{column}{0.51\textwidth}
+        \begin{column}{0.54\textwidth}
             \small
-            \textbf{KPIs} {\footnotesize (target = beat LEDNet, the previous joint method)}\\[1mm]
+            \textbf{\color{Navy}KPIs: what success looks like}\\[1mm]
             \footnotesize
-            \begin{tabular}{lll}
+            \renewcommand{\arraystretch}{1.25}
+            \begin{tabularx}{\linewidth}{>{\bfseries}p{0.3\linewidth} X}
                 \toprule
-                \textbf{Metric (LOLBlur)} & \textbf{Target} & \textbf{NightClear-m} \\
-                \midrule
-                PSNR $\uparrow$  & $> 25.74$ dB & \textbf{27.00} $\checkmark$ \\
-                SSIM $\uparrow$  & $> 0.850$    & \textbf{0.883} $\checkmark$ \\
-                LPIPS $\downarrow$ & $< 0.224$  & \textbf{0.162} $\checkmark$ \\
-                Compute          & $< 10$ GMACs & \textbf{7.25} $\checkmark$ \\
-                Model size       & $< 5$ M params & \textbf{3.31} $\checkmark$ \\
-                Deployment       & usable app   & Gradio UI $\checkmark$ \\
+                Fidelity       & Output close to the ground truth (PSNR, SSIM), better than the previous joint method \\
+                Perceptual     & Looks natural to a viewer, without colour shifts or artefacts (LPIPS) \\
+                Efficiency     & Small and light enough for a laptop CPU or one consumer GPU \\
+                Usability      & A working app that restores photos and video end to end \\
                 \bottomrule
-            \end{tabular}
+            \end{tabularx}
         \end{column}
     \end{columns}
 \end{frame}
-% ===================== 04-data.tex =====================
-%---------------------------------------------------------
-%	3.1 - 3.2 DATA (sizes from the DarkIR README / paper, EDA from presentation/eda/eda_lolv2.py)
-%---------------------------------------------------------
+
+
+% 04 - Related Work
+\section{Related Work}
+
+\begin{frame}{Existing Approaches}
+\small
+% ---------- 1. Literature Overview ----------
+{\color{Navy}\bfseries
+Representative Image Restoration Methods}
+
+\vspace{0.12cm}
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{tabularx}{\textwidth}{
+    >{\raggedright\arraybackslash}p{0.24\textwidth}
+    >{\raggedright\arraybackslash}p{0.38\textwidth}
+    >{\raggedright\arraybackslash}X
+}
+
+\toprule
+
+\textbf{\color{Navy}Approach} &
+\textbf{\color{Navy}Representative Methods} &
+\textbf{\color{Navy}Primary Objective} \\
+
+\midrule
+
+\textbf{Low-light Enhancement} & RetinexNet \cite{wei2018retinexnet}, Zero-DCE \cite{guo2020zerodce} & Illumination and contrast enhancement \\
+\textbf{Image Deblurring} & DeblurGAN \cite{kupyn2018deblurgan}, NAFNet \cite{chen2022nafnet} & Blur removal and detail restoration \\
+\textbf{Joint Restoration} & LEDNet \cite{zhou2022lednet}, DarkIR \cite{feijoo2025darkir} & Joint low-light enhancement and deblurring / multi-task restoration \\
+\bottomrule
+\end{tabularx}
+\vspace{0.3cm}
+\end{frame} 
+
+\begin{frame}{Existing Approaches}
+\small
+% ---------- 2. Limitation ----------
+{\color{Navy}\bfseries
+Limitation of Sequential Restoration}
+
+\vspace{0.22cm}
+
+\begin{center}
+
+\begin{tikzpicture}[
+    node distance=0.65cm,
+    process/.style={
+        draw=Navy!65,
+        fill=LightBlue!45,
+        rounded corners=3pt,
+        minimum width=2.55cm,
+        minimum height=0.72cm,
+        align=center,
+        font=\small\bfseries,
+        text=Navy
+    },
+    annotation/.style={
+        font=\scriptsize,
+        text=orange!85!black,
+        align=center
+    },
+    arrow/.style={
+        -{Stealth[length=2.2mm]},
+        thick,
+        draw=Navy!75
+    }
+]
+
+\node[process] (input)
+{Low-light Input};
+
+\node[process, right=of input] (enhance)
+{Enhancement};
+
+\node[process, right=of enhance] (deblur)
+{Deblurring};
+
+\node[process, right=of deblur] (output)
+{Restored Image};
+
+\draw[arrow] (input) -- (enhance);
+\draw[arrow] (enhance) -- (deblur);
+\draw[arrow] (deblur) -- (output);
+
+\node[annotation, below=0.13cm of enhance]
+{Noise amplification \cite{wei2018retinexnet}};
+
+\node[annotation, below=0.13cm of deblur]
+{Error propagation \cite{zhou2022lednet}};
+
+\end{tikzpicture}
+
+\end{center}
+
+\vspace{0.12cm}
+
+\begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \item Enhancement may amplify existing noise in low-light images.
+    \item Cascaded enhancement and deblurring may not effectively handle coupled visibility and sharpness degradation. \cite{zhou2022lednet}
+\end{itemize}
+
+\vspace{0.12cm}
+
+% ---------- 3. Research Motivation ----------
+
+\begin{beamercolorbox}[
+    rounded=true,
+    sep=0.08cm,
+    wd=\textwidth
+]{}
+
+\colorbox{LightBlue}{
+    \parbox{\dimexpr\textwidth-2\fboxsep\relax}{
+        {\color{Navy}\bfseries
+        Research Motivation}
+
+        \vspace{0.05cm}
+
+        \fontsize{9}{11}\selectfont
+
+        Joint restoration provides a unified approach
+        to addressing multiple image degradations,
+        motivating the investigation of robust
+        nighttime image restoration under challenging
+        imaging conditions \cite{zhou2022lednet,feijoo2025darkir}.
+    }
+}
+
+\end{beamercolorbox}
+\end{frame}
+
+
+% 05 - Data
 \section{Data}
 
 \begin{frame}
@@ -341,12 +611,20 @@
             \footnotesize
             \textbf{Preprocessing}
             \begin{itemize}
-                \item Train: random 384$\times$384 crops, flips and rotations
+                \item Train: random crops, flips and rotations
                 \item Pixels scaled to $[0, 1]$; pad to a multiple of 8 (3 down-sampling stages)
                 \item Deploy: optional resize (max side 1280\,px)
             \end{itemize}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Data Pipeline}
+    \framesubtitle{From public archives to training batches and a clean test set}
+
+    \centering
+    \includegraphics[width=\textwidth]{pipeline/data_pipeline.pdf}
 \end{frame}
 
 \begin{frame}
@@ -387,10 +665,7 @@
         \end{column}
     \end{columns}
 \end{frame}
-% ===================== 05-method.tex =====================
-%---------------------------------------------------------
-%	3.3 METHODOLOGY & ARCHITECTURE
-%---------------------------------------------------------
+% 05 - Methodology and architecture
 \section{Method}
 
 \begin{frame}
@@ -406,13 +681,11 @@
         lane/.style={rounded corners=6pt, draw=none},
         lanelabel/.style={rotate=90, font=\scriptsize\bfseries, align=center}]
 
-        % lanes
         \fill[lane, fptBlue!7]   (-2.2,-0.9) rectangle (11.35,1.5);
         \fill[lane, fptOrange!9] (-2.2,-3.95) rectangle (11.35,-1.75);
         \node[lanelabel, text=fptBlue]   at (-1.75,0.3)  {TRAINING\\[-0.5mm]\mdseries offline, once};
         \node[lanelabel, text=fptOrange] at (-1.75,-2.85) {INFERENCE\\[-0.5mm]\mdseries local GPU / CPU};
 
-        % training row
         \node[box] (d)  at (0,0)   {\textbf{Paired data}\\ LOL-Blur, LOLv2, LSRW\\ low-light + ground truth};
         \node[box] (a)  at (3.3,0) {\textbf{Augmentation}\\ 384$\times$384 crops\\ flips, rotations};
         \node[net] (m)  at (6.6,0) {\textbf{NightClear}\\ Encoder: brighten (FFT)\\ Decoder: deblur};
@@ -423,7 +696,6 @@
         \draw[flow, fptBlue] (l.north) to[out=150, in=30]
             node[above, font=\scriptsize, text=fptBlue] {update weights (AdamW)} (m.north);
 
-        % inference row
         \node[box] (i)  at (0,-2.85)   {\textbf{Night photo}\\ image, batch,\\ video or webcam};
         \node[box] (p)  at (3.3,-2.85) {\textbf{Pre-processing}\\ scale to $[0,1]$\\ pad to $\times$8 size};
         \node[net] (m2) at (6.6,-2.85) {\textbf{NightClear}\\ frozen weights\\ one forward pass};
@@ -432,7 +704,6 @@
         \draw[flow] (p) -- (m2);
         \draw[flow] (m2) -- (o);
 
-        % hand-over
         \draw[flow, fptBlue, dashed] (m.south) -- node[right, font=\scriptsize\bfseries, text=fptBlue] {trained weights} (m2.north);
     \end{tikzpicture}
 \end{frame}
@@ -441,8 +712,11 @@
     \frametitle{NightClear Architecture \& Training}
 
     \begin{center}
-        \includegraphics[height=0.37\textheight]{../../assets/networks-scheme.png}
+        \includegraphics[height=0.32\textheight]{../../assets/networks-scheme.png}
     \end{center}
+    \vspace{-2mm}
+    {\scriptsize\colorbox{LightBlue}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering
+        \textbf{\color{Navy}Inspiration:} inspired by \textbf{DarkIR} \cite{feijoo2025darkir} and \textbf{LEDNet} \cite{zhou2022lednet}; our encoder and decoder modules are adapted from both.}}}
     \vspace{-1mm}
     \begin{columns}[t]
         \begin{column}{0.5\textwidth}
@@ -468,28 +742,36 @@
         \end{column}
     \end{columns}
 \end{frame}
-% ===================== 06-results.tex =====================
-%---------------------------------------------------------
-%	4. MODELING & EVALUATION (numbers: DarkIR paper, arXiv 2412.13443)
-%---------------------------------------------------------
+% 06 - Results and evaluation
 \section{Results}
 
 \begin{frame}
-    \frametitle{Model Experimentation}
-    \framesubtitle{Baselines vs.\ advanced models on LOLBlur}
+    \frametitle{Model Experimentation (1/2): Training Run}
+    \framesubtitle{Our NightClear training on LOLv2 (real + synthetic), 100 epochs}
 
-    \begin{columns}[t]
-        \begin{column}{0.56\textwidth}
-            \includegraphics[width=\textwidth, height=0.55\textheight, keepaspectratio]{results/efficiency.png}\\
-            \footnotesize NightClear-m reaches the best PSNR with the \textbf{lowest compute} (7.25 GMACs, 20$\times$ less than Restormer).
-        \end{column}
-        \begin{column}{0.42\textwidth}
-            \includegraphics[width=\textwidth, height=0.55\textheight, keepaspectratio]{results/cascade.png}\\
-            \footnotesize Every two-model cascade stays below 18.4\,dB; one joint model gains \textbf{+8.7\,dB}.
-        \end{column}
-    \end{columns}
-    \vspace{1mm}
-    {\tiny DeblurGAN-v2 (22.30 dB) is not plotted: no MACs available.}
+    \begin{center}
+        \includegraphics[width=\textwidth]{results/training_curves.jpg}
+    \end{center}
+    \footnotesize
+    \begin{itemize}
+        \item All loss terms fall steadily with no sign of over-fitting; the edge and low-res terms converge first.
+        \item Synthetic test set: smooth gains, ending near \textbf{20.5\,dB PSNR / 0.86 SSIM}.
+        \item Real test set: lower and noisier (\textbf{about 19\,dB / 0.77}) $\Rightarrow$ real night photos are harder, as the EDA's real/synthetic gap predicted.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model Experimentation (2/2): Qualitative Results}
+    \framesubtitle{Test images never seen in training: input, NightClear output, ground truth}
+
+    \begin{center}
+        \includegraphics[width=\textwidth]{results/qualitative_grid.jpg}
+    \end{center}
+    \footnotesize
+    \begin{itemize}
+        \item Brightness, colours and structure are recovered on all four scenes, close to the ground truth.
+        \item Remaining gaps: slightly washed-out colours and soft fine texture in the darkest regions.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -536,11 +818,7 @@
         \item Takeaway: what remains is mostly \textbf{tone error in dark, textured regions}, consistent with the EDA (very dark pixels carry little signal).
     \end{itemize}
 \end{frame}
-% ===================== 07-interpretability.tex =====================
-%---------------------------------------------------------
-%	5. MODEL INTERPRETABILITY
-%	SHAP / feature importance do not fit an image-to-image model; component ablation plays that role.
-%---------------------------------------------------------
+% 07 - Model interpretability
 \begin{frame}
     \frametitle{Model Interpretability (1/2): Which Components Matter?}
     \framesubtitle{Component importance = PSNR lost when a part is removed or replaced}
@@ -577,10 +855,7 @@
         \end{column}
     \end{columns}
 \end{frame}
-% ===================== 08-demo.tex =====================
-%---------------------------------------------------------
-%	6. DEMO & IMPACT
-%---------------------------------------------------------
+% 08 - Product demo and practical impact
 \section{Demo}
 
 \begin{frame}
@@ -604,7 +879,6 @@
     \end{columns}
 \end{frame}
 
-% stat tile: big number + caption (defined outside the frame: frame bodies cannot hold #-parameters)
 \newcommand{\stat}[2]{%
     \begin{beamercolorbox}[wd=\linewidth, ht=1.6cm, dp=0pt, center, rounded=true]{block body example}
         {\LARGE\bfseries\color{fptOrange} #1}\\[1mm]{\scriptsize #2}
@@ -642,10 +916,7 @@
     \end{columns}
     {\tiny Runtime is not benchmarked yet, so no time saving is claimed.}
 \end{frame}
-% ===================== 09-conclusion.tex =====================
-%---------------------------------------------------------
-%	7. LIMITATIONS, CONCLUSION & Q&A
-%---------------------------------------------------------
+% 09 - Limitations, future work, and conclusion
 \section{Conclusion}
 
 \begin{frame}
@@ -675,79 +946,54 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Conclusion}
-    \textbf{Key takeaways}
-    \begin{enumerate}
-        \item \textbf{One model, three problems}: NightClear brightens, denoises and deblurs at once and beats two-model pipelines by +8.7\,dB.
-        \item \textbf{Efficient by design}: Fourier-amplitude encoder + dilated decoder give the best LOLBlur PSNR at 7.25 GMACs; our EDA and amplitude-swap test show why.
-        \item \textbf{Deployable}: a web app with 5 models, video/webcam and FP16/TensorRT, runnable on a local GPU or CPU.
-    \end{enumerate}
-\end{frame}
-% ===================== 10-references.tex =====================
-%---------------------------------------------------------
-%	REFERENCES (written by hand: biblatex is not installed on the build machine)
-%---------------------------------------------------------
+% 10 - References
 \begin{frame}
     \frametitle{References}
     \scriptsize
-    \begin{enumerate}
-        \item D. Feijoo, J. C. Benito, A. Garcia, M. V. Conde. \emph{DarkIR: Robust Low-Light Image Restoration}. CVPR 2025. arXiv:2412.13443.
-        \item S. Zhou, C. Li, C. C. Loy. \emph{LEDNet: Joint Low-Light Enhancement and Deblurring in the Dark}. ECCV 2022.
-        \item Y. Cai et al. \emph{Retinexformer: One-stage Retinex-based Transformer for Low-light Image Enhancement}. ICCV 2023.
-        \item S. W. Zamir et al. \emph{Restormer: Efficient Transformer for High-Resolution Image Restoration}. CVPR 2022.
-        \item L. Chen, X. Chu, X. Zhang, J. Sun. \emph{Simple Baselines for Image Restoration (NAFNet)}. ECCV 2022.
-        \item Q. Yan et al. \emph{HVI: A New Color Space for Low-light Image Enhancement (HVI-CIDNet)}. CVPR 2025.
-        \item C. Li, C. Guo, C. C. Loy. \emph{Learning to Enhance Low-Light Image via Zero-Reference Deep Curve Estimation (Zero-DCE++)}. TPAMI 2021.
-        \item W. Yang et al. \emph{Sparse Gradient Regularized Deep Retinex Network for Robust Low-Light Image Enhancement (LOLv2)}. TIP 2021.
-        \item J. Hai et al. \emph{R2RNet: Low-light Image Enhancement via Real-low to Real-normal Network (LSRW)}. JVCIR 2023.
-    \end{enumerate}
+    \setbeamertemplate{bibliography item}[text]
+    % run each entry on as one paragraph (default puts title / venue on new lines)
+    \setbeamertemplate{bibliography entry title}{}
+    \setbeamertemplate{bibliography entry location}{}
+    \setbeamertemplate{bibliography entry note}{}
+    \bibliographystyle{unsrt}
+    \bibliography{references}
 \end{frame}
-% ===================== 11-appendix.tex =====================
-%---------------------------------------------------------
-%	APPENDIX (backup slides)
-%---------------------------------------------------------
-\appendix
+% 11 - Backup slides
+% \appendix
 
-\begin{frame}
-    \frametitle{Backup: Dataset Scale}
-    \framesubtitle{Paired datasets, number of image pairs}
+% \begin{frame}
+%     \frametitle{Backup: Dataset Scale}
+%     \framesubtitle{Paired datasets, number of image pairs}
 
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{eda/dataset_sizes.png}
-    \end{center}
-    {\footnotesize
-    \begin{itemize}
-        \item LOL-Blur alone has more training pairs than all other paired sets combined.
-        \item Test sets are tiny for LOL (15) and LSRW (20--30): single-number scores there are noisy.
-    \end{itemize}
-    }
-\end{frame}
+%     \begin{center}
+%         \includegraphics[width=0.95\textwidth]{eda/dataset_sizes.png}
+%     \end{center}
+%     {\footnotesize
+%     \begin{itemize}
+%         \item LOL-Blur alone has more training pairs than all other paired sets combined.
+%         \item Test sets are tiny for LOL (15) and LSRW (20--30): single-number scores there are noisy.
+%     \end{itemize}
+%     }
+% \end{frame}
 
-\begin{frame}
-    \frametitle{Backup: LOLv2 Samples}
-    \framesubtitle{Low-light input (top) vs.\ normal-light ground truth (bottom), test split}
+% \begin{frame}
+%     \frametitle{Backup: LOLv2 Samples}
+%     \framesubtitle{Low-light input (top) vs.\ normal-light ground truth (bottom), test split}
 
-    \begin{center}
-        \includegraphics[width=\textwidth, height=0.6\textheight, keepaspectratio]{eda/samples.png}
-    \end{center}
-    {\footnotesize
-    \begin{itemize}
-        \item Real: 689 + 100 pairs, 600$\times$400. Synthetic: 900 + 100 pairs, 384$\times$384. All RGB, every low image has its ground truth.
-    \end{itemize}
-    }
-\end{frame}
-% ===================== 12-thanks.tex =====================
-%---------------------------------------------------------
-%	THANK YOU (final slide)
-%---------------------------------------------------------
+%     \begin{center}
+%         \includegraphics[width=\textwidth, height=0.6\textheight, keepaspectratio]{eda/samples.png}
+%     \end{center}
+%     {\footnotesize
+%     \begin{itemize}
+%         \item Real: 689 + 100 pairs, 600$\times$400. Synthetic: 900 + 100 pairs, 384$\times$384. All RGB, every low image has its ground truth.
+%     \end{itemize}
+%     }
+% \end{frame}
+% 12 - Closing slide
 \begin{frame}
     \begin{center}
         \includegraphics[height=1.5cm]{fptu_logo.png}\\[6mm]
         {\fontsize{40}{46}\selectfont\bfseries\color{fptBlue} Thank You!}\\[4mm]
-        % {\large\color{fptOrange} NightClear: Robust Low-Light Image Restoration}\\[6mm]
-        % {\small Mai Xuan Duc \quad$\cdot$\quad Phan Minh Nhat Truong \quad$\cdot$\quad Dang Thanh Tuan}\\[1mm]
-        % {\footnotesize Supervisor: Mr. Nguyen Trong Tai \quad$\cdot$\quad FPT University}
     \end{center}
 \end{frame}
 
