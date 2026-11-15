@@ -26,6 +26,18 @@
 \definecolor{CardFrame}{HTML}{B9C6D6}%
 \definecolor{GrayText}{HTML}{4A5568}%
 
+% Loss / training slide colours
+\definecolor{LossNavy}{RGB}{20,55,95}
+\definecolor{LossBlue}{RGB}{235,244,253}
+\definecolor{LossOrange}{RGB}{253,241,230}
+\definecolor{LossGray}{RGB}{246,248,250}
+\setbeamercolor{lossobjective}{fg=LossNavy, bg=LossBlue}
+\setbeamercolor{losspixel}{fg=LossNavy, bg=LossBlue}
+\setbeamercolor{losspercep}{fg=LossNavy, bg=LossGray}
+\setbeamercolor{lossedge}{fg=LossNavy, bg=LossOrange}
+\setbeamercolor{losslol}{fg=LossNavy, bg=LossGray}
+\setbeamercolor{lossweights}{fg=LossNavy, bg=LossBlue}
+
 % Card with picture + title + short description (motivation slide)
 % #1 = image file, #2 = short title, #3 = description
 
@@ -709,38 +721,209 @@ Limitation of Sequential Restoration}
 \end{frame}
 
 \begin{frame}
-    \frametitle{NightClear Architecture \& Training}
+    \frametitle{NightClear Architecture}
 
     \begin{center}
-        \includegraphics[height=0.32\textheight]{../../assets/networks-scheme.png}
+        \includegraphics[height=0.34\textheight]{../../assets/networks-scheme.png}
     \end{center}
     \vspace{-2mm}
     {\scriptsize\colorbox{LightBlue}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\centering
         \textbf{\color{Navy}Inspiration:} inspired by \textbf{DarkIR} \cite{feijoo2025darkir} and \textbf{LEDNet} \cite{zhou2022lednet}; our encoder and decoder modules are adapted from both.}}}
-    \vspace{-1mm}
-    \begin{columns}[t]
-        \begin{column}{0.5\textwidth}
+    \vspace{0mm}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.48\textwidth}
             \footnotesize
-            \textbf{Encoder = illumination (Fourier domain)}
+            {\color{fptBlue}\bfseries Encoder: illumination (Fourier domain)}
             \begin{itemize}
-                \item EBlock: attention + \textbf{FreMLP} (MLP on the FFT \emph{amplitude})
+                \setlength{\itemsep}{1pt}
+                \item EBlock: SpAM attention + \textbf{FreMLP} (MLP on the FFT \emph{amplitude})
                 \item Bottleneck predicts an 8$\times$ smaller lit image
             \end{itemize}
-            \textbf{Decoder = deblurring (spatial domain)}
-            \begin{itemize}
-                \item DBlock: \textbf{Di-SpAM}, dilated depthwise convs (1, 4, 9)
-            \end{itemize}
         \end{column}
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.48\textwidth}
             \footnotesize
-            \textbf{Training}
+            {\color{fptOrange!85!black}\bfseries Decoder: deblurring (spatial domain)}
             \begin{itemize}
-                \item Loss: $\mathcal{L} = \mathcal{L}_{1} + 0.01\,\mathcal{L}_{\text{LPIPS}} + 50\,\mathcal{L}_{\text{edge}} + \mathcal{L}_{\text{low-res}}$
-                \item AdamW, LR $5\!\times\!10^{-4} \rightarrow 10^{-6}$ cosine, batch 32, H100
-                \item NightClear-m: width 32, \textbf{3.31 M params, 7.25 GMACs}
+                \setlength{\itemsep}{1pt}
+                \item DBlock: \textbf{Di-SpAM} (dilated depthwise convs 1, 4, 9) + gated FFN
+                \item Restores sharp edges and fine spatial detail
             \end{itemize}
         \end{column}
     \end{columns}
+    \vspace{1mm}
+    {\scriptsize\centering
+        Multi-scale \quad$\cdot$\quad Skip connections \quad$\cdot$\quad Supervision at $1/8$ scale
+        \quad$\cdot$\quad NightClear-m: \textbf{3.31 M params, 7.25 GMACs}\par}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Frequency Domain}
+    \small
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.5\textwidth}
+            {\color{Navy}\bfseries Spatial-to-Frequency Transformation}\\[1mm]
+            \includegraphics[width=\textwidth]{method/mag_freq.png}
+        \end{column}
+        \begin{column}{0.47\textwidth}
+            {\color{Navy}\bfseries 2D Fourier Transform}
+            \footnotesize
+            \[
+                F(u,v)=\sum_x\sum_y I(x,y)\, e^{-j2\pi\left(\frac{ux}{H}+\frac{vy}{W}\right)}
+            \]
+            \vspace{-2mm}
+            {\color{Navy}\bfseries\small Magnitude \& Phase}
+            \[
+                F(u,v)=A(u,v)\,e^{j\phi(u,v)},\quad A=|F|,\quad \phi=\arg F
+            \]
+            \vspace{-3mm}
+            \begin{itemize}
+                \setlength{\itemsep}{1pt}
+                \item \textbf{Magnitude:} strength of each frequency, which carries brightness
+                \item \textbf{Phase:} spatial structure of the scene
+            \end{itemize}
+        \end{column}
+    \end{columns}
+
+    \vspace{2mm}
+    {\color{Navy}\bfseries Frequency-domain enhancement with FreMLP}\hfill{\scriptsize\cite{feijoo2025darkir}}
+
+    \vspace{1mm}
+    \begin{center}
+    \begin{tikzpicture}[
+        node distance=0.32cm,
+        block/.style={draw=Navy!65, fill=LightBlue!40, rounded corners=3pt, minimum width=1.75cm,
+                      minimum height=0.65cm, align=center, font=\scriptsize\bfseries, text=Navy},
+        arrow/.style={-{Stealth[length=1.8mm]}, thick, draw=Navy!75}]
+        \node[block] (fft) {FFT};
+        \node[block, right=of fft] (decomp) {Amplitude / Phase};
+        \node[block, right=of decomp, fill=fptBlue!12] (mlp) {MLP on Amplitude};
+        \node[block, right=of mlp] (recon) {Reconstruct};
+        \node[block, right=of recon] (ifft) {IFFT};
+        \draw[arrow] (fft) -- (decomp);
+        \draw[arrow] (decomp) -- (mlp);
+        \draw[arrow] (mlp) -- (recon);
+        \draw[arrow] (recon) -- (ifft);
+        \node[font=\scriptsize, text=fptOrange!85!black, below=0.08cm of mlp] {Amplitude modulation};
+        \node[font=\scriptsize, text=green!50!black, below=0.08cm of recon] {Phase preserved};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+% loss / training cards: #1 colour, #2 content
+\newcommand{\losscard}[2]{%
+    \begin{beamercolorbox}[wd=\linewidth, sep=0.10cm, rounded=true]{#1}#2\end{beamercolorbox}}
+
+\begin{frame}
+    \frametitle{Loss Function}
+    \scriptsize
+
+    {\color{LossNavy}\bfseries Overall optimisation objective}\\[1mm]
+    \begin{beamercolorbox}[wd=\textwidth, sep=0.08cm, rounded=true, center]{lossobjective}
+        $\displaystyle
+        \mathcal{L} = \lambda_{1}\mathcal{L}_{1} + \lambda_{p}\mathcal{L}_{\text{LPIPS}}
+                    + \lambda_{e}\mathcal{L}_{\text{edge}} + \mathcal{L}_{\text{low-res}}$
+    \end{beamercolorbox}
+    \vspace{1.3mm}
+
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.49\textwidth}
+            \losscard{losspixel}{{\color{LossNavy}\bfseries 01. Pixel loss}\par\vspace{1mm}
+                \centering $\mathcal{L}_{1}=\|x-\hat{x}\|_1$\par\vspace{1mm}\raggedright
+                Pixel-level fidelity: minimises the absolute reconstruction error.}
+        \end{column}
+        \begin{column}{0.49\textwidth}
+            \losscard{lossedge}{{\color{LossNavy}\bfseries 03. Edge loss}\par\vspace{1mm}
+                \centering $\mathcal{L}_{\text{edge}}=\|\nabla x-\nabla\hat{x}\|_2^2$\par\vspace{1mm}\raggedright
+                Keeps edges and structural detail sharp.}
+        \end{column}
+    \end{columns}
+    \vspace{1mm}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.49\textwidth}
+            \losscard{losspercep}{{\color{LossNavy}\bfseries 02. Perceptual loss}\par\vspace{1mm}
+                \centering $\mathcal{L}_{\text{LPIPS}}=\mathrm{LPIPS}(x,\hat{x})$\par\vspace{1mm}\raggedright
+                Deep-feature distance: encourages results that look natural.}
+        \end{column}
+        \begin{column}{0.49\textwidth}
+            \losscard{losslol}{{\color{LossNavy}\bfseries 04. Low-res loss}\par\vspace{1mm}
+                \centering $\mathcal{L}_{\text{low-res}}=\|x_{\downarrow 8}-\hat{x}_{\downarrow 8}\|_1$\par\vspace{1mm}\raggedright
+                Supervises the encoder's 1/8-scale output to guide brightening.}
+        \end{column}
+    \end{columns}
+    \vspace{1.3mm}
+
+    \begin{beamercolorbox}[wd=\textwidth, sep=0.08cm, rounded=true, center]{lossweights}
+        {\bfseries Loss weights}\hspace{0.25cm}
+        $\lambda_{1}=1$ \qquad $\lambda_{p}=0.01$ \qquad $\lambda_{e}=50$
+    \end{beamercolorbox}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Training Pipeline}
+    \scriptsize
+
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.32\textwidth}
+            \begin{beamercolorbox}[wd=\linewidth, sep=0.09cm, rounded=true, center]{lossedge}
+                {\color{LossNavy}\bfseries 01. Data Preparation}
+            \end{beamercolorbox}
+            \vspace{1mm}
+            {\color{LossNavy}\bfseries LOL-Blur dataset}\\
+            {\color{LossNavy}\bfseries\Large 10,200} training pairs\\
+            {\color{LossNavy}\bfseries\Large 1,800} test pairs\\[1mm]
+            \textbf{Preprocessing}
+            \begin{itemize}
+                \setlength{\itemsep}{1pt}
+                \item Random crop $384\times384$
+                \item Horizontal / vertical flip
+                \item Random rotation
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.35\textwidth}
+            \begin{beamercolorbox}[wd=\linewidth, sep=0.09cm, rounded=true, center]{losspixel}
+                {\color{LossNavy}\bfseries 02. Model Training}
+            \end{beamercolorbox}
+            \vspace{1.3mm}
+            \begin{center}
+                {\color{LossNavy}\bfseries Encoder $\longrightarrow$ Decoder}\\[1mm]
+                {\color{fptOrange}\Large $\downarrow$}\\[0.5mm]
+                {\color{LossNavy}\bfseries Optimisation}
+            \end{center}
+            \begin{itemize}
+                \setlength{\itemsep}{2pt}
+                \item Forward pass
+                \item Combined loss computation
+                \item Back-propagation
+                \item AdamW parameter update
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.29\textwidth}
+            \begin{beamercolorbox}[wd=\linewidth, sep=0.09cm, rounded=true, center]{lossedge}
+                {\color{LossNavy}\bfseries 03. Evaluation}
+            \end{beamercolorbox}
+            \vspace{1mm}
+            {\color{LossNavy}\bfseries\large PSNR}\\ Pixel fidelity\\[1mm]
+            {\color{LossNavy}\bfseries\large SSIM}\\ Structural similarity\\[1mm]
+            {\color{LossNavy}\bfseries\large LPIPS}\\ Perceptual quality
+        \end{column}
+    \end{columns}
+
+    \vspace{1.5mm}
+    \begin{beamercolorbox}[wd=\textwidth, sep=0.07cm, rounded=true, center]{lossobjective}
+        {\color{LossNavy}\bfseries Training configuration}
+    \end{beamercolorbox}
+    \vspace{0.3mm}
+    \begin{beamercolorbox}[wd=\textwidth, sep=0.04cm, center]{losspercep}
+        \renewcommand{\arraystretch}{1.15}
+        \fontsize{7.5}{9}\selectfont
+        \begin{tabular}{cccc}
+            \textbf{Patch size} & \textbf{Batch size} & \textbf{Optimizer} & \textbf{Initial LR} \\
+            $384\times384$ & 32 & AdamW & $5\times10^{-4}$ \\
+            \hline
+            \textbf{Weight decay} & \textbf{LR scheduler} & \textbf{Minimum LR} & \textbf{GPU} \\
+            $10^{-3}$ & Cosine annealing & $10^{-6}$ & H100
+        \end{tabular}
+    \end{beamercolorbox}
 \end{frame}
 % 06 - Results and evaluation
 \section{Results}

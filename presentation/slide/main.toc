@@ -2,6 +2,6 @@
 \beamer@sectionintoc {3}{Related Work}{6}{0}{2}
 \beamer@sectionintoc {4}{Data}{8}{0}{3}
 \beamer@sectionintoc {5}{Method}{12}{0}{4}
-\beamer@sectionintoc {6}{Results}{14}{0}{5}
-\beamer@sectionintoc {7}{Demo}{20}{0}{6}
-\beamer@sectionintoc {8}{Conclusion}{22}{0}{7}
+\beamer@sectionintoc {6}{Results}{17}{0}{5}
+\beamer@sectionintoc {7}{Demo}{23}{0}{6}
+\beamer@sectionintoc {8}{Conclusion}{25}{0}{7}
