@@ -1,0 +1,92 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\definecolor{fptBlue}{RGB}{0,75,145}
+\definecolor{fptOrange}{RGB}{243,112,33}
+\definecolor{Navy}{HTML}{0B2545}
+\definecolor{LightBlue}{HTML}{E7F0FA}
+\definecolor{GrayText}{HTML}{4A5568}
+\setbeamercolor{block title}{bg=fptOrange, fg=white}
+\setbeamercolor{block body}{bg=fptOrange!20}
+\graphicspath{{images/}{./}}
+\newcommand{\problemcard}[3]{%
+    \begin{minipage}[t]{0.295\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=1.75cm,keepaspectratio]{#1}\par
+        \vspace{0.06cm}
+        {\color{Navy}\bfseries\small #2\par}
+        \vspace{0.03cm}
+        {\color{GrayText}\scriptsize #3\par}
+    \end{minipage}%
+}
+\typeout{TEXTHEIGHT=\the\textheight\space TEXTWIDTH=\the\textwidth}
+\begin{document}
+\begin{frame}{Problem \& Motivation}
+\small
+\begin{center}
+\problemcard
+    {images/1_statement/1_1.jpg}
+    {Low Illumination}
+    {Insufficient light causes poor visibility
+    and loss of image details.}%
+\hfill
+\problemcard
+    {images/1_statement/1_2.jpg}
+    {Sensor Noise}
+    {Low exposure increases the impact
+    of sensor noise.}%
+\hfill
+\problemcard
+    {images/1_statement/1_3.jpg}
+    {Motion Blur}
+    {Camera or object motion during
+    exposure causes spatial blur.}
+\end{center}
+
+\vspace{0.1cm}
+
+\begin{columns}[T,onlytextwidth]
+
+    % ---------- 2. Image Formation Model ----------
+    \column{0.52\textwidth}
+    \begin{block}{Image Formation Model}
+        \vspace{-0.15cm}
+        \begin{equation*}
+            y = \mathcal{T}(x * k) + n
+        \end{equation*}
+        \vspace{-0.35cm}
+        {\scriptsize
+        \begin{itemize}
+            \setlength{\itemsep}{1pt}
+            \setlength{\parskip}{0pt}
+            \item[$x$] Latent sharp scene image.
+            \item[$k$] Blur kernel (PSF).
+            \item[$*$] Convolution operation.
+            \item[$\mathcal{T}$] Camera response / intensity transform.
+            \item[$n$] Sensor noise.
+            \item[$y$] Observed degraded image.
+        \end{itemize}}
+    \end{block}
+
+    % ---------- 3. Research Motivation ----------
+    \column{0.44\textwidth}
+    \begin{beamercolorbox}[rounded=true,sep=0.12cm,wd=\linewidth]{}
+        \colorbox{LightBlue}{%
+            \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+                {\color{Navy}\bfseries Research Motivation}
+
+                \vspace{0.06cm}
+
+                {\scriptsize
+                Low-light enhancement and image deblurring
+                are coupled restoration problems.
+                Addressing them independently may limit
+                the overall quality of nighttime image
+                restoration.}
+            }%
+        }
+    \end{beamercolorbox}
+
+\end{columns}
+
+\end{frame}
+\end{document}
